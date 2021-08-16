@@ -18,7 +18,10 @@
       "@api/*": ["pages/api/*"],
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
-      "@constants": ["constants/index.ts"]
+      "@constants": ["constants/index.ts"],
+      "@apollo": ["apollo/index.ts"],
+      "@services/*": ["services/*"],
+      "@views": ["views/index.ts"]
     }
   },
   "include": [
