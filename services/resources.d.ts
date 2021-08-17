@@ -1,5 +1,4 @@
 // Entities
-
 interface ContentfullEntity {
   sys: Sys;
   contentfulMetadata: ContentfullMetadata;
@@ -28,7 +27,7 @@ interface Author extends ContentfullEntity {
 interface Plant extends ContentfullEntity {
   plantName: string;
   slug: string;
-  description: string;
+  description: PlantDescription;
   image: Asset;
   category: Category;
   author: Author;
@@ -48,6 +47,16 @@ interface ContentfullMetadata {
 interface ContentfulTag {
   id: string;
   name: string;
+}
+
+interface PlantDescription {
+  json: import("@contentful/rich-text-types/dist/types/types").Document;
+  links: PlantDescriptionLinks;
+}
+
+interface PlantDescriptionLinks {
+  entries: any;
+  assets: any;
 }
 
 interface Sys {

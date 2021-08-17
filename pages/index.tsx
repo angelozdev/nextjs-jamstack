@@ -1,17 +1,12 @@
 import { getPlantList } from "@services/plants";
 import { Home } from "@views";
+import { Alert } from "evergreen-ui";
 
 // types
-import type { GetStaticProps } from "next";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 interface Props {
   plants: PlantCollection;
-}
-
-function Index({ plants }: Props) {
-  const areTherePlants = !!plants.items.length;
-  if (!areTherePlants) return <p>There is no plants for now :(</p>;
-  return <Home plantCollection={plants} />;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -33,3 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 };
 export default Index;
+
+function Index({ plants }: InferGetStaticPropsType<typeof getStaticProps>) {
+  return <Home plantCollection={plants} />;
+}

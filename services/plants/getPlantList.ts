@@ -8,6 +8,9 @@ const query = gql`
       skip
       total
       items {
+        description {
+          json
+        }
         plantName
         sys {
           id
@@ -15,8 +18,6 @@ const query = gql`
         image {
           url
           title
-          width
-          height
         }
       }
     }
