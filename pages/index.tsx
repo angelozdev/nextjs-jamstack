@@ -20,6 +20,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         plants,
         authors,
       },
+      revalidate: 5 * 60,
     };
   } catch (error) {
     return {
