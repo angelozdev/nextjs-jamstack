@@ -4,6 +4,8 @@ import { Home } from "@views";
 
 // types
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import Head from "next/head";
+import { Fragment } from "react";
 
 interface Props {
   plants: Plant[];
@@ -12,7 +14,7 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const plants = await getPlantList({ limit: 7 });
+    const plants = await getPlantList({ limit: 19 });
     const authors = await getAuthorList({ limit: 4 });
 
     return {
@@ -34,5 +36,12 @@ function Index({
   plants,
   authors,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <Home plants={plants} authors={authors} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>🏠 Treepedia | Nextjs course</title>
+      </Head>
+      <Home plants={plants} authors={authors} />
+    </Fragment>
+  );
 }

@@ -1,6 +1,8 @@
+import { Fragment } from "react";
 import { getPlantById, getPlantList } from "@services/plants";
 import { SinglePlant } from "@views";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // types
 import type {
@@ -55,7 +57,14 @@ function Entry({ plant }: InferGetStaticPropsType<typeof getStaticProps>) {
         <Spinner /> Loading...
       </Pane>
     );
-  return <SinglePlant plant={plant} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>🌿 {plant.plantName} | Treepedia</title>
+      </Head>
+      <SinglePlant plant={plant} />
+    </Fragment>
+  );
 }
 
 export default Entry;
