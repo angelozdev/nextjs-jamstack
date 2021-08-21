@@ -1,11 +1,11 @@
 import {
+  Button,
   Card,
+  Heading,
+  ListItem,
+  OrderedList,
   Pane,
   Paragraph,
-  Heading,
-  OrderedList,
-  ListItem,
-  Button,
 } from "evergreen-ui";
 import {
   documentToReactComponents,
@@ -13,6 +13,8 @@ import {
 } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Image from "next/image";
+import NextLink from "next/link";
+import { Routes } from "@constants";
 
 const options: Options = {
   renderNode: {
@@ -30,9 +32,9 @@ const options: Options = {
   },
 };
 
-function PlantCard({ image, plantName, description }: Partial<Plant>) {
+function PlantCard({ image, plantName, description, slug }: Partial<Plant>) {
   return (
-    <Card is="li" hoverElevation={1} border>
+    <Card is="li" hoverElevation={1}>
       {image?.url && (
         <Image
           src={image?.url}
@@ -71,7 +73,16 @@ function PlantCard({ image, plantName, description }: Partial<Plant>) {
             )}{" "}
           (...)
         </Pane>
-        <Button>Hola</Button>
+        <NextLink
+          href={{
+            pathname: Routes.SINGLE_PLANT,
+            query: { slug },
+          }}
+        >
+          <Button is="a" appearance="minimal">
+            READ MORE
+          </Button>
+        </NextLink>
       </Pane>
     </Card>
   );

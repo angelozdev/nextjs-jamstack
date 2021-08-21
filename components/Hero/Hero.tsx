@@ -8,14 +8,14 @@ import { Routes } from "@constants";
 function Hero({ image, plantName, slug }: Plant) {
   return (
     <Pane is="section">
-      <Wrapper maxWidth="1280px">
-        <Pane marginY="4rem" position="relative">
+      <Wrapper maxWidth="1280px" hasPadding={false}>
+        <Pane position="relative">
           {image.url && (
-            <Pane opacity={0.55}>
+            <Pane opacity={0.55} minHeight="70vh">
               <Wrapper maxWidth="768px" hasPadding={false}>
                 <Image
                   src={image.url}
-                  layout="intrinsic"
+                  layout="fill"
                   width={image.width}
                   height={image.height}
                   alt={plantName}
@@ -39,7 +39,7 @@ function Hero({ image, plantName, slug }: Plant) {
               <Link is="a" cursor="pointer">
                 <Heading
                   is="h1"
-                  fontSize="3rem"
+                  fontSize="3.5rem"
                   lineHeight="1.3"
                   marginLeft="3vw"
                 >

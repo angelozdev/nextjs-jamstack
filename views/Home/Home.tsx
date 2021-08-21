@@ -1,19 +1,22 @@
 import { Alert, Pane } from "evergreen-ui";
-import { Hero, PlantList, Wrapper } from "@components";
+import { AuthorsSection, Hero, PlantList, Wrapper } from "@components";
 import { Fragment } from "react";
 
 // types
 interface Props {
   plantCollection: PlantCollection;
+  authorCollection: AuthorCollection;
 }
 
-function Home({ plantCollection }: Props) {
-  const plants = plantCollection.items || [];
+function Home({ plantCollection, authorCollection }: Props) {
+  const [firstPlant, ...plants] = plantCollection.items || [];
   const areTherePlants = !!plants.length;
+  const authors = authorCollection.items || [];
 
   return (
     <Fragment>
-      <Hero {...plants[0]} />
+      <Hero {...firstPlant} />
+      <AuthorsSection authors={authors} />
       <Pane is="section" marginY="1rem">
         <Wrapper maxWidth={areTherePlants ? "1280px" : "768px"}>
           {!areTherePlants && (

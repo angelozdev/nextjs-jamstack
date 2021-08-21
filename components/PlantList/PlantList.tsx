@@ -16,12 +16,13 @@ function PlantList({ plants = [] }: Props) {
       gap="1rem"
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
     >
-      {plants.map(({ plantName, sys, image, description }) => (
+      {plants.map(({ plantName, sys, image, description, slug }) => (
         <PlantCard
           key={sys?.id}
           plantName={plantName}
           image={image}
           description={description}
+          slug={slug}
         />
       ))}
     </Pane>

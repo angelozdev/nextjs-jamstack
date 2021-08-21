@@ -7,7 +7,7 @@ function Header() {
   return (
     <Pane is="header" elevation={1}>
       <Wrapper maxWidth="1280px">
-        <Pane>
+        <Pane paddingY="1rem">
           <NextLink href={Routes.HOME}>
             <Link paddingY="1rem" display="inline-block" cursor="pointer">
               <Heading is="h1" display="flex" gap=".5rem">
