@@ -21,12 +21,20 @@ const query = gql`
   }
 `;
 
-async function getAuthorList(options?: Options<AuthorOrder>) {
+async function getAuthorList(
+  options?: Options<AuthorOrder>
+): Promise<Author[]> {
   const { limit = 10, skip = 0, order = [] } = options || {};
-  return client.query<{ authorCollection: AuthorCollection }>({
-    query,
-    variables: { limit, skip, order },
-  });
+  return client
+    .query<{ authorCollection: AuthorCollection }>({
+      query,
+      variables: { limit, skip, order },
+    })
+    .then(({ data }) => {
+      if (!data?.authorCollection?.items?.length)
+        throw new Error("[SERVICES]: authors not found");
+      return data.authorCollection.items;
+    });
 }
 
 export default getAuthorList;

@@ -32,11 +32,16 @@ const query = gql`
   }
 `;
 
-async function getPlantById(id: string) {
-  return client.query<{ plant: Plant }>({
-    query,
-    variables: { id },
-  });
+async function getPlantById(id: string): Promise<Plant> {
+  return client
+    .query<{ plant: Plant }>({
+      query,
+      variables: { id },
+    })
+    .then(({ data }) => {
+      if (!data?.plant) throw new Error(`[SERVICES]: plant not found`);
+      return data.plant;
+    });
 }
 
 export default getPlantById;

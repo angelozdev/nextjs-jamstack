@@ -8,11 +8,9 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const {
-      data: { plantCollection },
-    } = await getPlantList({ limit: 10 });
+    const plants = await getPlantList({ limit: 10 });
 
-    const paths = plantCollection.items.map(({ sys }) => ({
+    const paths = plants.map(({ sys }) => ({
       params: { id: sys?.id },
     }));
 
@@ -27,11 +25,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
   try {
     if (typeof id !== "string") throw new Error("[entry/:id]: id is invalid");
-
-    const {
-      data: { plant },
-    } = await getPlantById(id);
-
+    const plant = await getPlantById(id);
     return {
       props: {
         plant,

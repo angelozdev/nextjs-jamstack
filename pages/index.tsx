@@ -6,32 +6,24 @@ import { Home } from "@views";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 interface Props {
-  plants: PlantCollection;
-  authors: AuthorCollection;
+  plants: Plant[];
+  authors: Author[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const {
-      data: { plantCollection },
-    } = await getPlantList({ limit: 7 });
-
-    const {
-      data: { authorCollection },
-    } = await getAuthorList({ limit: 4 });
+    const plants = await getPlantList({ limit: 7 });
+    const authors = await getAuthorList({ limit: 4 });
 
     return {
       props: {
-        plants: plantCollection,
-        authors: authorCollection,
+        plants,
+        authors,
       },
     };
   } catch (error) {
     return {
-      props: {
-        plants: { items: [], limit: 0, skip: 0, total: 0 },
-        authors: { items: [], limit: 0, skip: 0, total: 0 },
-      },
+      notFound: true,
     };
   }
 };
@@ -41,5 +33,5 @@ function Index({
   plants,
   authors,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <Home plantCollection={plants} authorCollection={authors} />;
+  return <Home plants={plants} authors={authors} />;
 }

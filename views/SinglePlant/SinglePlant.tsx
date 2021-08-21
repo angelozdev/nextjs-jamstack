@@ -1,4 +1,4 @@
-import { Badge, Heading, Pane, Paragraph, Text } from "evergreen-ui";
+import { Badge, Heading, Pane, Paragraph } from "evergreen-ui";
 import Image from "next/image";
 
 import { RichText, Wrapper } from "@components";

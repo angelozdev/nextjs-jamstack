@@ -27,12 +27,18 @@ const query = gql`
   }
 `;
 
-async function getPlantList(options?: Options<PlantOrder>) {
+async function getPlantList(options?: Options<PlantOrder>): Promise<Plant[]> {
   const { limit = 10, skip = 0, order = [] } = options || {};
-  return client.query<{ plantCollection: PlantCollection }>({
-    query,
-    variables: { limit, skip, order },
-  });
+  return client
+    .query<{ plantCollection: PlantCollection }>({
+      query,
+      variables: { limit, skip, order },
+    })
+    .then(({ data }) => {
+      if (!data?.plantCollection?.items?.length)
+        throw new Error("[SERVICES]: plants not foun");
+      return data.plantCollection.items;
+    });
 }
 
 export default getPlantList;
