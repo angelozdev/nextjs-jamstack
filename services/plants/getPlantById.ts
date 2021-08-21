@@ -6,6 +6,28 @@ const query = gql`
     plant(id: $id) {
       plantName
       slug
+      description {
+        json
+      }
+      image {
+        url
+        width
+        height
+      }
+      author {
+        fullName
+        biography
+        photo {
+          url
+          title
+        }
+      }
+      category {
+        title
+        icon {
+          url
+        }
+      }
     }
   }
 `;

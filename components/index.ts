@@ -7,4 +7,5 @@ export { Hero } from "./Hero";
 export { Layout } from "./Layout";
 export { PlantCard } from "./PlantCard";
 export { PlantList } from "./PlantList";
+export { RichText } from "./RichText";
 export { Wrapper } from "./Wrapper";

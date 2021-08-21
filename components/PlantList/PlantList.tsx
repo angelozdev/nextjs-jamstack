@@ -23,6 +23,7 @@ function PlantList({ plants = [] }: Props) {
           image={image}
           description={description}
           slug={slug}
+          sys={sys}
         />
       ))}
     </Pane>
