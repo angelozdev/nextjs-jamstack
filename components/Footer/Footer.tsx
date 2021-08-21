@@ -1,5 +1,5 @@
-import { Wrapper } from "@components";
 import { Pane } from "evergreen-ui";
+import { Wrapper } from "@components";
 
 function Footer() {
   return (

@@ -1,6 +1,5 @@
 import { getPlantList } from "@services/plants";
 import { Home } from "@views";
-import { Alert } from "evergreen-ui";
 
 // types
 import type { GetStaticProps, InferGetStaticPropsType } from "next";

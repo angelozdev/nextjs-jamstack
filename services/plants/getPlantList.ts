@@ -8,6 +8,7 @@ const query = gql`
       skip
       total
       items {
+        slug
         description {
           json
         }
@@ -18,6 +19,8 @@ const query = gql`
         image {
           url
           title
+          width
+          height
         }
       }
     }

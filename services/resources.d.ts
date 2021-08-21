@@ -78,7 +78,7 @@ interface Collection<T> {
 
 type AssetCollection = Collection<Asset>;
 type AuthorCollection = Collection<Author>;
-type PlantCollection = Collection<Partial<Plant>>;
+type PlantCollection = Collection<Plant>;
 type CategoryCollection = Collection<Category>;
 
 // Orders

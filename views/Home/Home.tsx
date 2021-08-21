@@ -1,5 +1,6 @@
 import { Alert, Pane } from "evergreen-ui";
-import { PlantList, Wrapper } from "@components";
+import { Hero, PlantList, Wrapper } from "@components";
+import { Fragment } from "react";
 
 // types
 interface Props {
@@ -11,15 +12,18 @@ function Home({ plantCollection }: Props) {
   const areTherePlants = !!plants.length;
 
   return (
-    <Pane is="section" marginY="1rem">
-      <Wrapper maxWidth={areTherePlants ? "1280px" : "768px"}>
-        {!areTherePlants && (
-          <Alert intent="warning">There are no plants for now! :o</Alert>
-        )}
+    <Fragment>
+      <Hero {...plants[0]} />
+      <Pane is="section" marginY="1rem">
+        <Wrapper maxWidth={areTherePlants ? "1280px" : "768px"}>
+          {!areTherePlants && (
+            <Alert intent="warning">There are no plants for now! :o</Alert>
+          )}
 
-        {areTherePlants && <PlantList plants={plants} />}
-      </Wrapper>
-    </Pane>
+          {areTherePlants && <PlantList plants={plants} />}
+        </Wrapper>
+      </Pane>
+    </Fragment>
   );
 }
 
