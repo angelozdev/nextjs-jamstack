@@ -1,5 +1,5 @@
 import { Alert, Pane } from "evergreen-ui";
-import { PlantList } from "@components";
+import { PlantList, Wrapper } from "@components";
 
 // types
 interface Props {
@@ -12,17 +12,13 @@ function Home({ plantCollection }: Props) {
 
   return (
     <Pane is="section" marginY="1rem">
-      <Pane
-        maxWidth={areTherePlants ? "1280px" : "768px"}
-        marginX="auto"
-        paddingX="1rem"
-      >
+      <Wrapper maxWidth={areTherePlants ? "1280px" : "768px"}>
         {!areTherePlants && (
           <Alert intent="warning">There are no plants for now! :o</Alert>
         )}
 
         {areTherePlants && <PlantList plants={plants} />}
-      </Pane>
+      </Wrapper>
     </Pane>
   );
 }
