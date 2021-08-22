@@ -20,6 +20,7 @@ const query = gql`
         photo {
           url
           title
+          width
         }
       }
       category {
