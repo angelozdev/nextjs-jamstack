@@ -5,7 +5,14 @@ import { Routes } from "@constants";
 import { useMemo } from "react";
 import NextLink from "next/link";
 
-function PlantCard({ image, plantName, description, sys }: Partial<Plant>) {
+interface Props {
+  image: Asset;
+  plantName: string;
+  description: PlantDescription;
+  slug: string;
+}
+
+function PlantCard({ image, plantName, description, slug }: Props) {
   const richText = useMemo(
     () => getRichText(description?.json),
     [description?.json]
@@ -44,7 +51,7 @@ function PlantCard({ image, plantName, description, sys }: Partial<Plant>) {
         <NextLink
           href={{
             pathname: Routes.SINGLE_PLANT,
-            query: { id: sys?.id },
+            query: { slug },
           }}
         >
           <Button is="a" appearance="minimal">

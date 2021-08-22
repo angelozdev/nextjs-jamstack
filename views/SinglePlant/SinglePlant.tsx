@@ -1,4 +1,4 @@
-import { Badge, Card, Heading, Pane, Paragraph } from "evergreen-ui";
+import { Badge, Card, Heading, Link, Pane, Paragraph } from "evergreen-ui";
 import NextLink from "next/link";
 import { RichText, Wrapper, Image, CategoryCard } from "@components";
 import { Routes } from "@constants";
@@ -14,6 +14,7 @@ function SinglePlant({ plant, categories, recentPosts }: Props) {
   const { fullName, photo, biography } = author;
   const { title } = category;
   const text = description?.json;
+
   return (
     <Pane is="section">
       <Wrapper maxWidth="1280px">
@@ -84,15 +85,34 @@ function SinglePlant({ plant, categories, recentPosts }: Props) {
               <Heading is="h3" size={600}>
                 Recent Posts
               </Heading>
-              {recentPosts.map(({ sys, plantName }) => (
-                <Card key={sys.id} borderBottom paddingY=".5rem">
+              {recentPosts.map(({ slug, plantName, image }) => (
+                <Card key={slug} borderBottom paddingY=".5rem">
                   <NextLink
                     href={{
                       pathname: Routes.SINGLE_PLANT,
-                      query: { id: sys.id },
+                      query: { slug },
                     }}
                   >
-                    {plantName}
+                    <Link
+                      cursor="pointer"
+                      display="flex"
+                      gap=".5rem"
+                      alignItems="center"
+                    >
+                      <Pane flexBasis="80px" is="figure" padding="0" margin="0">
+                        <Image
+                          src={image.url}
+                          alt={plantName}
+                          aspectRatio="4:3"
+                          width={image.width}
+                          fit="fill"
+                        />
+                      </Pane>
+
+                      <Pane flexGrow={1} flexBasis="200px">
+                        <Paragraph>{plantName}</Paragraph>
+                      </Pane>
+                    </Link>
                   </NextLink>
                 </Card>
               ))}

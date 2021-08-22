@@ -1,6 +1,6 @@
 enum Routes {
   HOME = "/",
-  SINGLE_PLANT = "/entry/[id]",
+  SINGLE_PLANT = "/entry/[slug]",
 }
 
 export default Routes;

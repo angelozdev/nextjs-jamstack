@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { getPlantById, getPlantList } from "@services/plants";
+import { getPlantBySlug, getPlantList } from "@services/plants";
 import { SinglePlant } from "@views";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -21,20 +21,20 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const plants = await getPlantList({ limit: 10 });
-  const paths = plants.map(({ sys }) => ({
-    params: { id: sys.id },
+  const paths = plants.map(({ slug }) => ({
+    params: { slug },
   }));
 
   return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const id = params?.id;
+  const slug = params?.slug;
 
   try {
-    if (typeof id !== "string")
-      throw new Error(`[ENTRY/${id?.toString()}]: id is invalid`);
-    const plant = await getPlantById(id);
+    if (typeof slug !== "string")
+      throw new Error(`[ENTRY/:slug]: slug is invalid`);
+    const plant = await getPlantBySlug(slug);
     const categories = await getCategoryList();
     const recentPosts = await getPlantList({
       limit: 6,

@@ -3,7 +3,7 @@ import { PlantCard } from "@components";
 
 // types
 interface Props {
-  plants: Partial<Plant>[];
+  plants: Plant[];
 }
 
 function PlantList({ plants = [] }: Props) {
@@ -23,7 +23,6 @@ function PlantList({ plants = [] }: Props) {
           image={image}
           description={description}
           slug={slug}
-          sys={sys}
         />
       ))}
     </Pane>

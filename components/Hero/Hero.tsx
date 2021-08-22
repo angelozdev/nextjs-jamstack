@@ -4,7 +4,7 @@ import { Heading, Pane, Link } from "evergreen-ui";
 import { Wrapper, Image } from "@components";
 import { Routes } from "@constants";
 
-function Hero({ image, plantName, sys }: Plant) {
+function Hero({ image, plantName, slug }: Plant) {
   return (
     <Pane is="section">
       <Wrapper maxWidth="1280px" hasPadding={false}>
@@ -32,7 +32,7 @@ function Hero({ image, plantName, sys }: Plant) {
             <NextLink
               href={{
                 pathname: Routes.SINGLE_PLANT,
-                query: { id: sys.id },
+                query: { slug },
               }}
             >
               <Link is="a" cursor="pointer">

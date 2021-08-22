@@ -10,12 +10,12 @@ function CategoryCard({ title, image }: Props) {
   return (
     <Card is="li" borderBottom paddingY=".5rem">
       <Pane display="flex" gap=".5rem" alignItems="center">
-        <Pane flexBasis="80px" is="figure" margin="0" padding="0">
+        <Pane flexBasis="50px" is="figure" margin="0" padding="0">
           <Image
             width={image.width}
             alt={`${title} - ${image.title}`}
             src={image.url}
-            aspectRatio="4:3"
+            aspectRatio="1:1"
             fit="fill"
           />
         </Pane>
