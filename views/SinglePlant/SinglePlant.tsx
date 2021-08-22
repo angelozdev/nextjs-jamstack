@@ -1,7 +1,6 @@
 import { Badge, Heading, Pane, Paragraph } from "evergreen-ui";
-import Image from "next/image";
 
-import { RichText, Wrapper } from "@components";
+import { RichText, Wrapper, Image } from "@components";
 
 interface Props {
   plant: Plant;
@@ -23,7 +22,8 @@ function SinglePlant({ plant }: Props) {
                 alt={plantName}
                 layout="responsive"
                 width={image.width}
-                height={image.height}
+                aspectRatio="16:9"
+                fit="fill"
               />
             )}
 
@@ -54,10 +54,10 @@ function SinglePlant({ plant }: Props) {
                     <Image
                       src={photo.url}
                       layout="responsive"
-                      width={1}
-                      height={1}
-                      objectFit="cover"
+                      width={photo.width}
+                      fit="fill"
                       alt={fullName}
+                      aspectRatio="1:1"
                     />
                   </Pane>
                 )}

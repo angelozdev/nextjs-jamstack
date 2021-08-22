@@ -1,9 +1,8 @@
 import { Button, Card, Heading, Pane } from "evergreen-ui";
 import { getRichText } from "./utils";
-import { RichText } from "@components";
+import { RichText, Image } from "@components";
 import { Routes } from "@constants";
 import { useMemo } from "react";
-import Image from "next/image";
 import NextLink from "next/link";
 
 function PlantCard({ image, plantName, description, sys }: Partial<Plant>) {
@@ -16,12 +15,13 @@ function PlantCard({ image, plantName, description, sys }: Partial<Plant>) {
     <Card is="li" hoverElevation={1}>
       {image?.url && (
         <Image
+          aspectRatio="4:3"
           src={image?.url}
           alt={image.title}
-          width={100}
-          height={70}
+          width={image.width}
           layout="responsive"
           objectFit="cover"
+          fit="fill"
         />
       )}
 

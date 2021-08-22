@@ -1,5 +1,5 @@
 import { Pane, Paragraph } from "evergreen-ui";
-import Image from "next/image";
+import { Image } from "@components";
 
 function AuthorCard({ fullName, photo }: Partial<Author>) {
   return (
@@ -8,9 +8,10 @@ function AuthorCard({ fullName, photo }: Partial<Author>) {
         <Image
           src={photo?.url}
           alt={photo.title}
-          width={1}
-          height={1}
+          width={photo.width}
           layout="responsive"
+          aspectRatio="1:1"
+          fit="fill"
         />
       )}
 

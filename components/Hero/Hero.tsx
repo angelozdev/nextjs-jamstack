@@ -1,23 +1,24 @@
-import Image from "next/image";
 import NextLink from "next/link";
 import { Heading, Pane, Link } from "evergreen-ui";
 
-import { Wrapper } from "@components";
+import { Wrapper, Image } from "@components";
 import { Routes } from "@constants";
 
 function Hero({ image, plantName, sys }: Plant) {
   return (
     <Pane is="section">
       <Wrapper maxWidth="1280px" hasPadding={false}>
-        <Pane position="relative">
+        <Pane position="relative" paddingY="2rem">
           {image.url && (
-            <Pane opacity={0.55} minHeight="70vh">
-              <Wrapper maxWidth="768px" hasPadding={false}>
+            <Pane opacity={0.55}>
+              <Wrapper maxWidth="600px" hasPadding={false}>
                 <Image
                   src={image.url}
-                  layout="fill"
+                  layout="responsive"
                   alt={plantName}
-                  objectFit="cover"
+                  width={image.width}
+                  aspectRatio="3:4"
+                  fit="fill"
                 />
               </Wrapper>
             </Pane>
@@ -37,7 +38,7 @@ function Hero({ image, plantName, sys }: Plant) {
               <Link is="a" cursor="pointer">
                 <Heading
                   is="h1"
-                  fontSize="3.5rem"
+                  fontSize="clamp(2rem, 5vw, 4rem)"
                   lineHeight="1.3"
                   marginLeft="3vw"
                 >
