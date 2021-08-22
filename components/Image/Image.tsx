@@ -32,7 +32,6 @@ function Image({ src, fit = "scale", aspectRatio, width, ...rest }: Props) {
       height={height}
       src={src}
       loader={loader}
-      objectFit="cover"
       {...rest}
     />
   );

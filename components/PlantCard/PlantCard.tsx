@@ -20,7 +20,6 @@ function PlantCard({ image, plantName, description, sys }: Partial<Plant>) {
           alt={image.title}
           width={image.width}
           layout="responsive"
-          objectFit="cover"
           fit="fill"
         />
       )}

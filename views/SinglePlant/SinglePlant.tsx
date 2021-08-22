@@ -1,12 +1,15 @@
-import { Badge, Heading, Pane, Paragraph } from "evergreen-ui";
-
-import { RichText, Wrapper, Image } from "@components";
+import { Badge, Card, Heading, Pane, Paragraph } from "evergreen-ui";
+import NextLink from "next/link";
+import { RichText, Wrapper, Image, CategoryCard } from "@components";
+import { Routes } from "@constants";
 
 interface Props {
   plant: Plant;
+  categories: Category[];
+  recentPosts: Plant[];
 }
 
-function SinglePlant({ plant }: Props) {
+function SinglePlant({ plant, categories, recentPosts }: Props) {
   const { plantName, image, description, author, category } = plant;
   const { fullName, photo, biography } = author;
   const { title } = category;
@@ -73,10 +76,38 @@ function SinglePlant({ plant }: Props) {
             flexGrow={1}
             flexBasis="300px"
             is="aside"
-            border
-            padding=".5rem"
+            display="flex"
+            flexDirection="column"
+            gap="2rem"
           >
-            ASIDE
+            <Pane>
+              <Heading is="h3" size={600}>
+                Recent Posts
+              </Heading>
+              {recentPosts.map(({ sys, plantName }) => (
+                <Card key={sys.id} borderBottom paddingY=".5rem">
+                  <NextLink
+                    href={{
+                      pathname: Routes.SINGLE_PLANT,
+                      query: { id: sys.id },
+                    }}
+                  >
+                    {plantName}
+                  </NextLink>
+                </Card>
+              ))}
+            </Pane>
+
+            <Pane>
+              <Heading is="h3" size={600}>
+                Categories
+              </Heading>
+              <Pane is="ul" padding="0" marginY=".5rem" listStyle="none">
+                {categories.map(({ sys, title, icon }) => (
+                  <CategoryCard key={sys.id} title={title} image={icon} />
+                ))}
+              </Pane>
+            </Pane>
           </Pane>
         </Pane>
       </Wrapper>

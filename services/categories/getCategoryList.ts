@@ -8,21 +8,35 @@ const query = gql`
     $order: [CategoryOrder]
   ) {
     categoryCollection(limit: $limit, skip: $skip, order: $order) {
-      limit
       items {
         title
-        slug
+        sys {
+          id
+        }
+        icon {
+          url
+          width
+          title
+        }
       }
     }
   }
 `;
 
-async function getCategoryList(options?: Options<CategoryOrder>) {
+async function getCategoryList(
+  options?: Options<CategoryOrder>
+): Promise<Category[]> {
   const { limit = 10, skip = 0, order = [] } = options || {};
-  return client.query<{ categoryCollection: CategoryCollection }>({
-    query,
-    variables: { limit, skip, order },
-  });
+  return client
+    .query<{ categoryCollection: CategoryCollection }>({
+      query,
+      variables: { limit, skip, order },
+    })
+    .then(({ data }) => {
+      if (!data?.categoryCollection?.items?.length)
+        throw new Error("[SERVICES]: categories not found");
+      return data.categoryCollection.items;
+    });
 }
 
 export default getCategoryList;

@@ -11,9 +11,12 @@ import type {
   InferGetStaticPropsType,
 } from "next";
 import { Pane, Spinner } from "evergreen-ui";
+import { getCategoryList } from "@services/categories";
 
 interface Props {
   plant: Plant;
+  categories: Category[];
+  recentPosts: Plant[];
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -32,8 +35,14 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     if (typeof id !== "string")
       throw new Error(`[ENTRY/${id?.toString()}]: id is invalid`);
     const plant = await getPlantById(id);
+    const categories = await getCategoryList();
+    const recentPosts = await getPlantList({
+      limit: 6,
+      order: "sys_publishedAt_ASC",
+    });
+
     return {
-      props: { plant },
+      props: { plant, categories, recentPosts },
       revalidate: 5 * 60,
     };
   } catch (error) {
@@ -41,7 +50,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   }
 };
 
-function Entry({ plant }: InferGetStaticPropsType<typeof getStaticProps>) {
+function Entry({
+  plant,
+  categories,
+  recentPosts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isFallback } = useRouter();
 
   if (isFallback)
@@ -62,7 +75,11 @@ function Entry({ plant }: InferGetStaticPropsType<typeof getStaticProps>) {
       <Head>
         <title>🌿 {plant.plantName} | Treepedia</title>
       </Head>
-      <SinglePlant plant={plant} />
+      <SinglePlant
+        plant={plant}
+        categories={categories}
+        recentPosts={recentPosts}
+      />
     </Fragment>
   );
 }
