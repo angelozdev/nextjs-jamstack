@@ -33,6 +33,8 @@ function AuthorTabContent({
           src={photo.url}
           width={photo.width}
           alt={fullName}
+          fit="fill"
+          radius={20}
         />
       </Pane>
 

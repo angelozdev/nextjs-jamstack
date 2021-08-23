@@ -3,9 +3,11 @@ import { getAuthorList } from "@services/authors";
 import { Authors } from "@views";
 import { Alert, Pane } from "evergreen-ui";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // types
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { Fragment } from "react";
 
 interface Props {
   data: { authors: Author[] };
@@ -68,6 +70,9 @@ function TopStories({
   const router = useRouter();
   const currentAuthor = router.query?.handle;
 
+  const { fullName = "Unknown" } =
+    authors.find(({ handle }) => handle === currentAuthor) || {};
+
   if (status === "error" || typeof currentAuthor !== "string") {
     return (
       <Pane paddingY="2rem" minHeight="80vh">
@@ -92,7 +97,14 @@ function TopStories({
     );
   }
 
-  return <Authors authors={authors} currentAuthor={currentAuthor} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>{fullName} - Top Stories</title>
+      </Head>
+      <Authors authors={authors} currentAuthor={currentAuthor} />
+    </Fragment>
+  );
 }
 
 export default TopStories;

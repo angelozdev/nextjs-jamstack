@@ -9,9 +9,17 @@ interface Props extends Omit<ImageProps, "height"> {
   aspectRatio: AspectRatio;
   fit?: Fit;
   width: number;
+  radius?: number;
 }
 
-function Image({ src, fit = "scale", aspectRatio, width, ...rest }: Props) {
+function Image({
+  src,
+  fit = "scale",
+  aspectRatio,
+  width,
+  radius = 0,
+  ...rest
+}: Props) {
   const { height, width: finalWidth } = getHeightAndWidth(width, aspectRatio);
 
   const loader = useCallback(
@@ -20,10 +28,10 @@ function Image({ src, fit = "scale", aspectRatio, width, ...rest }: Props) {
         width,
         aspectRatio
       );
-      const url = `${src}?w=${finalWidth}&h=${height}&fit=${fit}`;
+      const url = `${src}?w=${finalWidth}&h=${height}&fit=${fit}&r=${radius}`;
       return url;
     },
-    [aspectRatio, fit]
+    [aspectRatio, fit, radius]
   );
 
   return (

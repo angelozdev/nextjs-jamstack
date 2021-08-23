@@ -20,6 +20,7 @@ function RecentPosts({ recentPosts }: Props) {
               pathname: Routes.SINGLE_PLANT,
               query: { slug },
             }}
+            passHref
           >
             <Link
               cursor="pointer"

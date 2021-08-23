@@ -8,7 +8,7 @@ function Header() {
     <Pane is="header" elevation={1}>
       <Wrapper maxWidth="1280px">
         <Pane paddingY=".5rem">
-          <NextLink href={Routes.HOME}>
+          <NextLink href={Routes.HOME} passHref>
             <Link paddingY="1rem" display="inline-block" cursor="pointer">
               <Heading is="h1" display="flex" gap=".5rem">
                 <TreeIcon color="green500" />

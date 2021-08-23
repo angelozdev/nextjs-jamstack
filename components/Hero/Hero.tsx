@@ -34,6 +34,7 @@ function Hero({ image, plantName, slug }: Plant) {
                 pathname: Routes.SINGLE_PLANT,
                 query: { slug },
               }}
+              passHref
             >
               <Link is="a" cursor="pointer">
                 <Heading

@@ -1,27 +1,34 @@
+import { Routes } from "@constants";
 import { Tab } from "evergreen-ui";
-import { useRouter } from "next/router";
+import NextLink from "next/link";
 
 interface Props {
   handle: Author["handle"];
   fullName: Author["fullName"];
-  onSelect: (handle: Author["handle"]) => void;
   currentAuthor: Author["handle"];
 }
 
-function AuthorTab({ handle, fullName, onSelect, currentAuthor }: Props) {
+function AuthorTab({ handle, fullName, currentAuthor }: Props) {
   return (
-    <Tab
-      key={handle}
-      id={handle}
-      onSelect={() => onSelect(handle)}
-      isSelected={handle === currentAuthor}
-      aria-controls={`panel-${handle}`}
-      display="block"
-      marginBottom=".5rem"
-      textTransform="uppercase"
+    <NextLink
+      href={{
+        pathname: Routes.TOP_STORIES,
+        query: { handle },
+      }}
+      passHref
+      shallow
     >
-      {fullName}
-    </Tab>
+      <Tab
+        is="a"
+        id={handle}
+        isSelected={handle === currentAuthor}
+        display="block"
+        marginBottom=".5rem"
+        textTransform="uppercase"
+      >
+        {fullName}
+      </Tab>
+    </NextLink>
   );
 }
 

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:dev": "yarn build && yarn start"
   },
   "dependencies": {
     "@apollo/client": "^3.4.7",

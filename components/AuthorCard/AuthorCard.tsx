@@ -17,6 +17,7 @@ function AuthorCard({ fullName, photo, handle }: Props) {
           pathname: Routes.TOP_STORIES,
           query: { handle },
         }}
+        passHref
       >
         <Link cursor="pointer">
           {photo?.url && (

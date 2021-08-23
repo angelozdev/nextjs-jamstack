@@ -1,7 +1,5 @@
 import { Heading, Pane, Tablist } from "evergreen-ui";
 import { AuthorTab, AuthorTabContent, Wrapper } from "@components";
-import { useRouter } from "next/router";
-import { Routes } from "@constants";
 
 interface Props {
   authors: Author[];
@@ -9,19 +7,6 @@ interface Props {
 }
 
 function Authors({ authors, currentAuthor }: Props) {
-  const router = useRouter();
-
-  const handleSelectAuthor = (handle: string) => {
-    router.push(
-      {
-        pathname: Routes.TOP_STORIES,
-        query: { handle },
-      },
-      undefined,
-      { shallow: true }
-    );
-  };
-
   return (
     <Pane is="section" paddingY="2rem">
       <Wrapper maxWidth="1280px">
@@ -37,7 +22,6 @@ function Authors({ authors, currentAuthor }: Props) {
                 key={handle}
                 fullName={fullName}
                 handle={handle}
-                onSelect={handleSelectAuthor}
                 currentAuthor={currentAuthor}
               />
             ))}
