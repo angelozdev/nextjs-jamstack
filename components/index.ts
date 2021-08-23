@@ -1,6 +1,8 @@
 export { AuthorCard } from "./AuthorCard";
 export { AuthorList } from "./AuthorList";
 export { AuthorsSection } from "./AuthorsSection";
+export { AuthorTab } from "./AuthorTab";
+export { AuthorTabContent } from "./AuthorTabContent";
 export { CategoryCard } from "./CategoryCard";
 export { CategorySection } from "./CategorySection";
 export { Footer } from "./Footer";

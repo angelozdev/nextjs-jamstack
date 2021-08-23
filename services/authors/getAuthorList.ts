@@ -6,6 +6,7 @@ const query = gql`
     authorCollection(limit: $limit, skip: $skip, order: $order) {
       limit
       items {
+        biography
         handle
         photo {
           title
