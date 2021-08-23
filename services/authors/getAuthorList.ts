@@ -6,16 +6,13 @@ const query = gql`
     authorCollection(limit: $limit, skip: $skip, order: $order) {
       limit
       items {
+        handle
         photo {
           title
           url
           width
-          height
         }
         fullName
-        sys {
-          id
-        }
       }
     }
   }
