@@ -49,6 +49,7 @@ function PlantCard({ image, plantName, description, slug }: Props) {
           />
         )}
         <NextLink
+          passHref
           href={{
             pathname: Routes.SINGLE_PLANT,
             query: { slug },

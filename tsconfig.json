@@ -28,7 +28,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "services/resources.d.ts"
+    "services/resources.d.ts",
+    "global-types.d.ts"
   ],
   "exclude": ["node_modules"]
 }

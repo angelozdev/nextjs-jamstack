@@ -28,7 +28,7 @@ const query = gql`
 `;
 
 async function getPlantList(options?: Options<PlantOrder>): Promise<Plant[]> {
-  const { limit = 10, skip = 0, order = [] } = options || {};
+  const { limit = 10, skip = 10, order = [] } = options || {};
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,

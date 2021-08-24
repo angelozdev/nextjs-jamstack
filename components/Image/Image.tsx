@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import NextImage from "next/image";
 import { getHeightAndWidth } from "./utils";
+import { formatQueryParams } from "utils";
 
 // types
 import type { ImageProps, ImageLoaderProps } from "next/image";
@@ -9,9 +10,21 @@ interface Props extends Omit<ImageProps, "height"> {
   aspectRatio: AspectRatio;
   fit?: Fit;
   width: number;
+  radius?: number;
+  format?: "jpg" | "png" | "webp" | "gif";
+  fl?: "png8" | "progressive";
 }
 
-function Image({ src, fit = "scale", aspectRatio, width, ...rest }: Props) {
+function Image({
+  aspectRatio,
+  fit = "fill",
+  format,
+  radius = 0,
+  src,
+  width,
+  fl,
+  ...rest
+}: Props) {
   const { height, width: finalWidth } = getHeightAndWidth(width, aspectRatio);
 
   const loader = useCallback(
@@ -20,10 +33,22 @@ function Image({ src, fit = "scale", aspectRatio, width, ...rest }: Props) {
         width,
         aspectRatio
       );
-      const url = `${src}?w=${finalWidth}&h=${height}&fit=${fit}`;
+
+      const queries = {
+        fit,
+        fl,
+        fm: format,
+        h: height,
+        r: radius,
+        w: finalWidth,
+      };
+
+      const stringParams = formatQueryParams(queries);
+
+      const url = `${src}${stringParams}`;
       return url;
     },
-    [aspectRatio, fit]
+    [aspectRatio, fit, radius, format, fl]
   );
 
   return (

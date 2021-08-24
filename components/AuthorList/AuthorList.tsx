@@ -17,8 +17,13 @@ function AuthorList({ authors }: Props) {
       gap="1rem"
       justifyContent="center"
     >
-      {authors.map(({ sys, fullName, photo }) => (
-        <AuthorCard key={sys?.id} fullName={fullName} photo={photo} />
+      {authors.map(({ fullName, photo, handle }) => (
+        <AuthorCard
+          key={handle}
+          fullName={fullName}
+          photo={photo}
+          handle={handle}
+        />
       ))}
     </Pane>
   );
