@@ -71,6 +71,7 @@ function Entry({
         <Spinner /> Loading...
       </Pane>
     );
+
   return (
     <Fragment>
       <Head>
