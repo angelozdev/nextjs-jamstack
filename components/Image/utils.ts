@@ -15,7 +15,7 @@ const aspectRatioToRatio: AspectRatioToRatio = {
   "3:4": 4 / 3,
 };
 
-function getHeight(width: number, aspectRatio: AspectRatio): number {
+export function getHeight(width: number, aspectRatio: AspectRatio): number {
   const height = Math.floor(aspectRatioToRatio[aspectRatio] * width);
   if (height > MAX_LIMIT_SIZE) return MAX_LIMIT_SIZE;
   return height;

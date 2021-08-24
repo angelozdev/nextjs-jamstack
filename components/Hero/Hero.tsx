@@ -3,8 +3,16 @@ import { Heading, Pane, Link } from "evergreen-ui";
 
 import { Wrapper, Image } from "@components";
 import { Routes } from "@constants";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 function Hero({ image, plantName, slug }: Plant) {
+  const router = useRouter();
+  useEffect(() => {
+    router.prefetch(`/entry/${slug}`).then(() => {
+      console.log("prefetching");
+    });
+  }, [slug, router]);
   return (
     <Pane is="section">
       <Wrapper maxWidth="1280px" hasPadding={false}>
