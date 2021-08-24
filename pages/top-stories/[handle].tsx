@@ -25,9 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
       );
 
     const authors: Author[] = await getAuthorList({ limit: 10 });
-    const doesAuthorExist = authors.some(
-      (author) => author.handle === currentAuthor
-    );
+    const doesAuthorExist = authors.some((a) => a.handle === currentAuthor);
     const areThereAuthors = !!authors.length;
 
     if (!areThereAuthors)
