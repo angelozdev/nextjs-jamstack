@@ -16,10 +16,11 @@
     "baseUrl": "./",
     "paths": {
       "@api/*": ["pages/api/*"],
+      "@apollo": ["apollo/index.ts"],
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
       "@constants": ["constants/index.ts"],
-      "@apollo": ["apollo/index.ts"],
+      "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@views": ["views/index.ts"]
     }

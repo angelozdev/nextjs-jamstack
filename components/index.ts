@@ -12,6 +12,7 @@ export { Image } from "./Image";
 export { Layout } from "./Layout";
 export { PlantCard } from "./PlantCard";
 export { PlantList } from "./PlantList";
+export { PreviewModeBanner } from "./PreviewModeBanner";
 export { RecentPosts } from "./RecentPosts";
 export { RichText } from "./RichText";
 export { Wrapper } from "./Wrapper";

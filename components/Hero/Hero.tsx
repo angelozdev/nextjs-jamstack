@@ -22,9 +22,8 @@ function Hero({ image, plantName, slug }: Plant) {
               <Wrapper maxWidth="600px" hasPadding={false}>
                 <Image
                   src={image.url}
-                  layout="responsive"
                   alt={plantName}
-                  width={image.width}
+                  width={600}
                   aspectRatio="3:4"
                   fit="fill"
                 />

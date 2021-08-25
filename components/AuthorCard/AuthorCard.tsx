@@ -24,8 +24,7 @@ function AuthorCard({ fullName, photo, handle }: Props) {
             <Image
               src={photo.url}
               alt={photo.title}
-              width={photo.width}
-              layout="responsive"
+              width={300}
               aspectRatio="1:1"
               fit="fill"
             />

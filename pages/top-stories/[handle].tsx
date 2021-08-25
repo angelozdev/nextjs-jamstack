@@ -1,13 +1,12 @@
-import { Wrapper } from "@components";
-import { getAuthorList } from "@services/authors";
-import { Authors } from "@views";
-import { Alert, Pane } from "evergreen-ui";
+import { Fragment } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { Authors } from "@views";
+import { getAuthorList } from "@services/authors";
+import ErrorPage from "@pages/_error";
 
 // types
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { Fragment } from "react";
 
 interface Props {
   data: { authors: Author[] };
@@ -26,9 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
       );
 
     const authors: Author[] = await getAuthorList({ limit: 10 });
-    const doesAuthorExist = authors.some(
-      (author) => author.handle === currentAuthor
-    );
+    const doesAuthorExist = authors.some((a) => a.handle === currentAuthor);
     const areThereAuthors = !!authors.length;
 
     if (!areThereAuthors)
@@ -75,25 +72,10 @@ function TopStories({
 
   if (status === "error" || typeof currentAuthor !== "string") {
     return (
-      <Pane paddingY="2rem" minHeight="80vh">
-        <Wrapper maxWidth="600px">
-          <Alert title="Error to fetch data" intent="danger">
-            Uhps! There is an error to fetch data :/
-          </Alert>
-        </Wrapper>
-      </Pane>
-    );
-  }
-
-  if (!authors.length) {
-    return (
-      <Pane paddingY="2rem" minHeight="80vh">
-        <Wrapper maxWidth="600px">
-          <Alert title="Authors not found" intent="warning">
-            There are no authors for now :(
-          </Alert>
-        </Wrapper>
-      </Pane>
+      <ErrorPage
+        statusCode={502}
+        message="Uhps! There is an error to fetch data"
+      />
     );
   }
 

@@ -28,14 +28,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: true };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({
+  params,
+  preview,
+}) => {
   const slug = params?.slug;
 
   try {
     if (typeof slug !== "string")
       throw new Error(`[ENTRY/:slug]: slug is invalid`);
-    const plant = await getPlantBySlug(slug);
-    const categories = await getCategoryList();
+    const plant = await getPlantBySlug(slug, preview);
+    const categories = await getCategoryList({ limit: 10 });
     const recentPosts = await getPlantList({
       limit: 6,
       order: "sys_publishedAt_ASC",
@@ -71,6 +74,7 @@ function Entry({
         <Spinner /> Loading...
       </Pane>
     );
+
   return (
     <Fragment>
       <Head>

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Footer, Header } from "@components";
+import { Footer, Header, PreviewModeBanner } from "@components";
 
 // types
 import type { PropsWithChildren } from "react";
@@ -9,6 +9,7 @@ function Layout({ children }: PropsWithChildren<{}>) {
     <Fragment>
       <Header />
       <main>{children}</main>
+      <PreviewModeBanner />
       <Footer />
     </Fragment>
   );
