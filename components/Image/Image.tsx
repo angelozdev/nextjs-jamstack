@@ -21,11 +21,11 @@ function Image({
   format,
   radius = 0,
   src,
-  width,
+  width: initialWidth,
   fl,
   ...rest
 }: Props) {
-  const { height, width: finalWidth } = getHeightAndWidth(width, aspectRatio);
+  const { height } = getHeightAndWidth(initialWidth, aspectRatio);
 
   const loader = useCallback(
     ({ src, width }: ImageLoaderProps): string => {
@@ -53,11 +53,11 @@ function Image({
 
   return (
     <NextImage
-      width={finalWidth}
+      {...rest}
+      width={initialWidth}
       height={height}
       src={src}
       loader={loader}
-      {...rest}
     />
   );
 }

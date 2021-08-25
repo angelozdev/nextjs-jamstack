@@ -33,7 +33,7 @@ function RecentPosts({ recentPosts }: Props) {
                   src={image.url}
                   alt={plantName}
                   aspectRatio="4:3"
-                  width={image.width}
+                  width={80}
                   fit="fill"
                 />
               </Pane>

@@ -21,14 +21,16 @@ function PlantCard({ image, plantName, description, slug }: Props) {
   return (
     <Card is="li" hoverElevation={1}>
       {image?.url && (
-        <Image
-          aspectRatio="4:3"
-          src={image?.url}
-          alt={image.title}
-          width={image.width}
-          layout="responsive"
-          fit="fill"
-        />
+        <Pane textAlign="center">
+          <Image
+            aspectRatio="4:3"
+            src={image?.url}
+            alt={image.title}
+            width={400}
+            fit="fill"
+            objectFit="cover"
+          />
+        </Pane>
       )}
 
       <Pane padding="1rem">

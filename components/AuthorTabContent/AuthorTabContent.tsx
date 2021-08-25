@@ -27,11 +27,18 @@ function AuthorTabContent({
       flexWrap="wrap"
       alignItems="center"
     >
-      <Pane flexBasis="100px" flexGrow={1} is="figure" padding="0" margin="0">
+      <Pane
+        flexBasis="100px"
+        flexGrow={1}
+        is="figure"
+        textAlign="center"
+        padding="0"
+        margin="0"
+      >
         <Image
           aspectRatio="1:1"
           src={photo.url}
-          width={photo.width}
+          width={300}
           alt={fullName}
           fit="fill"
           radius={20}

@@ -29,8 +29,7 @@ function SinglePlant({ plant, categories, recentPosts }: Props) {
               <Image
                 src={image.url}
                 alt={plantName}
-                layout="responsive"
-                width={image.width}
+                width={900}
                 aspectRatio="16:9"
                 fit="fill"
               />
@@ -62,8 +61,7 @@ function SinglePlant({ plant, categories, recentPosts }: Props) {
                   <Pane flexBasis="200px">
                     <Image
                       src={photo.url}
-                      layout="responsive"
-                      width={photo.width}
+                      width={200}
                       fit="fill"
                       alt={fullName}
                       aspectRatio="1:1"
