@@ -1,25 +1,10 @@
+import { useRouter } from "next/router";
+import { Routes } from "@constants";
 import { Button, LabTestIcon, Pane, Portal, Tooltip } from "evergreen-ui";
-import { useEffect, useState } from "react";
-
-type Response = {
-  preview: boolean;
-  context: Record<string, any>;
-};
 
 function PreviewModeBanner() {
-  const [isPreviewMode, setIsPreviewMode] = useState(false);
-
-  useEffect(() => {
-    window
-      .fetch("/api/preview/status")
-      .then((response) => response.json())
-      .then(({ preview }: Response) => {
-        setIsPreviewMode(preview);
-      });
-  }, []);
-
-  if (!isPreviewMode) return null;
-
+  const router = useRouter();
+  if (!router.isPreview) return null;
   return (
     <Portal>
       <Pane
@@ -35,7 +20,7 @@ function PreviewModeBanner() {
             appearance="primary"
             is="a"
             iconBefore={LabTestIcon}
-            href="/api/preview/clear"
+            href={`${Routes.CLEAR_PREVIEW_MODE}?callback=${router.asPath}`}
           >
             Disable preview mode
           </Button>
