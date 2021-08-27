@@ -1,24 +1,47 @@
+import { useCallback } from "react";
 import NextLink from "next/link";
 import { Routes } from "@constants";
-import { Heading, TreeIcon, Pane, Link, Combobox } from "evergreen-ui";
+import { Heading, TreeIcon, Pane, Link, SegmentedControl } from "evergreen-ui";
 import { Wrapper } from "@components";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+
+// types
+interface Option {
+  label: string;
+  value: Locales;
+}
+
+const localeList: Option[] = [
+  {
+    label: "ES",
+    value: "es",
+  },
+  {
+    label: "EN",
+    value: "en-US",
+  },
+];
 
 function Header() {
   const router = useRouter();
-  const { locale, locales } = router;
+  const { locale, locales, asPath } = router;
 
-  const handleOnChangeLocale = useCallback((value: string) => {
-    window
-      .fetch(`/api/language`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ locale: value }),
-      })
-      .catch(console.error)
-      .finally(() => window.location.replace("/"));
-  }, []);
+  const handleOnChangeLocale = useCallback(
+    (value: Locales) => {
+      if (locale === value) return;
+      window
+        .fetch(`/api/language`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ locale: value }),
+        })
+        .catch(console.error)
+        .finally(() => {
+          router.replace(asPath, undefined, { locale: value });
+        });
+    },
+    [locale, asPath, router]
+  );
 
   if (!locales || !locale) {
     return null;
@@ -46,11 +69,10 @@ function Header() {
 
           {!!locales.length && (
             <Pane>
-              <Combobox
-                initialSelectedItem={locale}
-                items={locales}
-                width={120}
-                onChange={handleOnChangeLocale}
+              <SegmentedControl
+                options={localeList}
+                value={locale}
+                onChange={(value) => handleOnChangeLocale(value as Locales)}
               />
             </Pane>
           )}
