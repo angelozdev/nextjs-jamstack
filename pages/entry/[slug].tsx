@@ -6,12 +6,14 @@ import Head from "next/head";
 
 // types
 import type {
-  GetStaticPaths,
+  GetStaticPathsContext,
+  GetStaticPathsResult,
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
 import { Pane, Spinner } from "evergreen-ui";
 import { getCategoryList } from "@services/categories";
+import { Locales } from "@constants";
 
 interface Props {
   plant: Plant;
@@ -21,14 +23,21 @@ interface Props {
 
 interface Path {
   params: {
-    locale: Locales | string;
+    locale: Locales;
     slug: string;
   };
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  if (!locales)
+interface IGetStaticPathsContext extends GetStaticPathsContext {
+  locales?: Locales[];
+}
+
+export const getStaticPaths = async ({
+  locales,
+}: IGetStaticPathsContext): Promise<GetStaticPathsResult> => {
+  if (!locales || !Array.isArray(locales)) {
     throw new Error("You have to configure the locales in the next.config.js");
+  }
 
   const plants = await getPlantList({ limit: 10 });
   const paths: Path[] = plants.flatMap(({ slug }) => {

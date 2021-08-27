@@ -1,8 +1,9 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
+import { Locales } from "@constants";
 
 const PREFERRED_LOCALE_COOKIE = "NEXT_LOCALE";
-const DEFAULT_LOCALE: Locales = "es";
+const DEFAULT_LOCALE = Locales.ENGLISH;
 const DAY_IN_SECONDS = 60 * 24 * 60;
 
 const getMethod: NextApiHandler = (req, res) => {
@@ -41,9 +42,9 @@ function language(req: NextApiRequest, res: NextApiResponse) {
       return getMethod(req, res);
     case "POST":
       return postMethod(req, res);
+    default:
+      return res.status(405).json({ message: "Invalid method" });
   }
-
-  res.status(405).json({ message: "Invalid method" });
 }
 
 export default language;

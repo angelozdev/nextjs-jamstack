@@ -1,6 +1,6 @@
 import { Context, gql } from "@apollo/client";
 import { client } from "@apollo";
-import { EnvironmentVariables } from "@constants";
+import { EnvironmentVariables, Locales } from "@constants";
 
 const { contentful } = EnvironmentVariables;
 
@@ -45,7 +45,7 @@ const query = gql`
 async function getPlantById(
   slug: string,
   isPreview: boolean = false,
-  locale: Locales = "en-US"
+  locale = Locales.ENGLISH
 ): Promise<Plant> {
   const context: Context = {};
 

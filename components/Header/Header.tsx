@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import NextLink from "next/link";
-import { Routes } from "@constants";
+import { Locales, Routes } from "@constants";
 import { Heading, TreeIcon, Pane, Link, SegmentedControl } from "evergreen-ui";
 import { Wrapper } from "@components";
 import { useRouter } from "next/router";
@@ -14,11 +14,11 @@ interface Option {
 const localeList: Option[] = [
   {
     label: "ES",
-    value: "es",
+    value: Locales.SPANISH,
   },
   {
     label: "EN",
-    value: "en-US",
+    value: Locales.ENGLISH,
   },
 ];
 
