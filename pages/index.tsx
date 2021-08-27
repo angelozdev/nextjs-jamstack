@@ -12,9 +12,13 @@ interface Props {
   authors: Author[];
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
   try {
-    const plants = await getPlantList({ limit: 19 });
+    const plants = await getPlantList({
+      limit: 9,
+      locale: locale as Locales,
+      order: "sys_publishedAt_DESC",
+    });
     const authors = await getAuthorList({ limit: 4 });
 
     return {

@@ -19,11 +19,21 @@ interface Props {
   recentPosts: Plant[];
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+interface Path {
+  params: {
+    locale: Locales | string;
+    slug: string;
+  };
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  if (!locales)
+    throw new Error("You have to configure the locales in the next.config.js");
+
   const plants = await getPlantList({ limit: 10 });
-  const paths = plants.map(({ slug }) => ({
-    params: { slug },
-  }));
+  const paths: Path[] = plants.flatMap(({ slug }) => {
+    return locales.map((locale) => ({ params: { slug, locale } }));
+  });
 
   return { paths, fallback: true };
 };
@@ -31,17 +41,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({
   params,
   preview,
+  locale,
 }) => {
   const slug = params?.slug;
 
   try {
     if (typeof slug !== "string")
       throw new Error(`[ENTRY/:slug]: slug is invalid`);
-    const plant = await getPlantBySlug(slug, preview);
-    const categories = await getCategoryList({ limit: 10 });
+    const plant = await getPlantBySlug(slug, preview, locale as Locales);
+    const categories = await getCategoryList({
+      limit: 10,
+      locale: locale as Locales,
+    });
     const recentPosts = await getPlantList({
       limit: 6,
-      order: "sys_publishedAt_ASC",
+      order: "sys_publishedAt_DESC",
+      locale: locale as Locales,
     });
 
     return {

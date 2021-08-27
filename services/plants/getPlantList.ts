@@ -2,8 +2,18 @@ import { gql } from "@apollo/client";
 import { client } from "@apollo";
 
 const query = gql`
-  query getPlantList($limit: Int = 10, $skip: Int = 0, $order: [PlantOrder]) {
-    plantCollection(limit: $limit, skip: $skip, order: $order) {
+  query getPlantList(
+    $limit: Int = 10
+    $skip: Int = 0
+    $order: [PlantOrder]
+    $locale: String
+  ) {
+    plantCollection(
+      limit: $limit
+      skip: $skip
+      order: $order
+      locale: $locale
+    ) {
       limit
       skip
       total
@@ -27,12 +37,14 @@ const query = gql`
   }
 `;
 
-async function getPlantList(options?: Options<PlantOrder>): Promise<Plant[]> {
-  const { limit = 10, skip = 10, order = [] } = options || {};
+async function getPlantList(
+  options: Options<PlantOrder> = {}
+): Promise<Plant[]> {
+  const { limit = 10, skip = 0, order = [], locale = "en-US" } = options;
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,
-      variables: { limit, skip, order },
+      variables: { limit, skip, order, locale },
     })
     .then(({ data }) => {
       if (!data?.plantCollection?.items?.length)

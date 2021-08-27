@@ -1,8 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-function clearPreview(_: NextApiRequest, res: NextApiResponse) {
+function clearPreview(req: NextApiRequest, res: NextApiResponse) {
+  const callback = req.query?.callback;
   res.clearPreviewData();
-  res.redirect("/");
+  if (typeof callback !== "string") {
+    return res.redirect("/");
+  }
+
+  res.redirect(callback);
   res.end();
 }
 

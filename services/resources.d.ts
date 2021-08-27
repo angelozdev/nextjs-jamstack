@@ -151,4 +151,5 @@ interface Options<Order> {
   skip?: number;
   limit?: number;
   order?: [Order] | Order;
+  locale?: Locales;
 }

@@ -5,8 +5,13 @@ import { EnvironmentVariables } from "@constants";
 const { contentful } = EnvironmentVariables;
 
 const query = gql`
-  query getPlantBySlug($slug: String!, $preview: Boolean) {
-    plantCollection(where: { slug: $slug }, limit: 1, preview: $preview) {
+  query getPlantBySlug($slug: String!, $preview: Boolean, $locale: String) {
+    plantCollection(
+      where: { slug: $slug }
+      limit: 1
+      preview: $preview
+      locale: $locale
+    ) {
       items {
         plantName
         slug
@@ -39,7 +44,8 @@ const query = gql`
 
 async function getPlantById(
   slug: string,
-  isPreview: boolean = false
+  isPreview: boolean = false,
+  locale: Locales = "en-US"
 ): Promise<Plant> {
   const context: Context = {};
 
@@ -51,9 +57,9 @@ async function getPlantById(
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,
-      variables: { slug, preview: isPreview },
+      variables: { slug, preview: isPreview, locale },
       context,
-      fetchPolicy: isPreview ? "cache-first" : "no-cache",
+      fetchPolicy: isPreview ? "no-cache" : "cache-first",
     })
     .then(({ data }) => {
       if (!data?.plantCollection?.items?.length)

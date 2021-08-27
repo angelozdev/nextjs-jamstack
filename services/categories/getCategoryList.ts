@@ -6,8 +6,14 @@ const query = gql`
     $limit: Int = 10
     $skip: Int = 0
     $order: [CategoryOrder]
+    $locale: String
   ) {
-    categoryCollection(limit: $limit, skip: $skip, order: $order) {
+    categoryCollection(
+      limit: $limit
+      skip: $skip
+      order: $order
+      locale: $locale
+    ) {
       items {
         title
         sys {
@@ -26,11 +32,11 @@ const query = gql`
 async function getCategoryList(
   options?: Options<CategoryOrder>
 ): Promise<Category[]> {
-  const { limit = 10, skip = 0, order = [] } = options || {};
+  const { limit = 10, skip = 0, order = [], locale = "en-US" } = options || {};
   return client
     .query<{ categoryCollection: CategoryCollection }>({
       query,
-      variables: { limit, skip, order },
+      variables: { limit, skip, order, locale },
     })
     .then(({ data }) => {
       if (!data?.categoryCollection?.items?.length)
