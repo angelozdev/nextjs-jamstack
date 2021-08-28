@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Authors } from "@views";
 import { getAuthorList } from "@services/authors";
 import ErrorPage from "@pages/_error";
+import { EnvironmentVariables } from "@constants";
 
 // types
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -49,11 +50,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
       },
     };
   } catch (error) {
-    console.error(error);
+    if (EnvironmentVariables.node.env === "development") {
+      console.error(error);
+    }
     return {
       props: {
         data: { authors: [], currentAuthor },
-        status: "error",
+        status: "failed",
       },
     };
   }
@@ -70,7 +73,7 @@ function TopStories({
   const { fullName = "Unknown" } =
     authors.find(({ handle }) => handle === currentAuthor) || {};
 
-  if (status === "error" || typeof currentAuthor !== "string") {
+  if (status === "failed" || typeof currentAuthor !== "string") {
     return (
       <ErrorPage
         statusCode={502}

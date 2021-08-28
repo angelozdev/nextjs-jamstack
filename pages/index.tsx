@@ -1,22 +1,38 @@
+import { Fragment } from "react";
+import { Locales } from "@constants";
 import { getAuthorList } from "@services/authors";
 import { getPlantList } from "@services/plants";
 import { Home } from "@views";
+import Head from "next/head";
 
 // types
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import Head from "next/head";
-import { Fragment } from "react";
+import type {
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+  GetStaticPropsResult,
+} from "next";
 
 interface Props {
   plants: Plant[];
   authors: Author[];
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
+type TGetServerSidePropsResult = GetStaticPropsResult<Props>;
+interface IGetStaticPropsContext extends GetStaticPropsContext {
+  locale?: Locales;
+}
+
+export const getStaticProps = async ({
+  locale,
+}: IGetStaticPropsContext): Promise<TGetServerSidePropsResult> => {
   try {
+    if (!locale || typeof locale !== "string") {
+      throw new Error("[IndexPage: getStaticProps]: invalid locale");
+    }
+
     const plants = await getPlantList({
       limit: 9,
-      locale: locale as Locales,
+      locale,
       order: "sys_publishedAt_DESC",
     });
     const authors = await getAuthorList({ limit: 4 });

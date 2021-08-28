@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { client } from "@apollo";
+import { Locales } from "@constants";
 
 const query = gql`
   query getPlantList(
@@ -40,7 +41,12 @@ const query = gql`
 async function getPlantList(
   options: Options<PlantOrder> = {}
 ): Promise<Plant[]> {
-  const { limit = 10, skip = 0, order = [], locale = "en-US" } = options;
+  const {
+    limit = 10,
+    skip = 0,
+    order = [],
+    locale = Locales.ENGLISH,
+  } = options;
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,

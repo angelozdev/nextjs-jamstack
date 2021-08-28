@@ -1,8 +1,10 @@
 import { Link, Pane } from "evergreen-ui";
 import { Wrapper } from "@components";
 import { courses } from "./fixtures";
+import { useTranslation } from "hooks";
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <Pane is="footer" background="gray400">
       <Wrapper maxWidth="1280px">
@@ -13,7 +15,7 @@ function Footer() {
           flexDirection="column"
           gap=".5rem"
         >
-          {courses.map(({ href, text }, index) => (
+          {courses.map(({ href, id }, index) => (
             <Link
               key={index}
               color="neutral"
@@ -22,7 +24,7 @@ function Footer() {
               href={href}
               display="block"
             >
-              {text}
+              {t({ id })}
             </Link>
           ))}
         </Pane>

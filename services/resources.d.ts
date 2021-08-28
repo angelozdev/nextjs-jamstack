@@ -151,5 +151,5 @@ interface Options<Order> {
   skip?: number;
   limit?: number;
   order?: [Order] | Order;
-  locale?: Locales;
+  locale?: import("@constants").Locales;
 }

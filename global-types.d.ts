@@ -1,2 +1,1 @@
-type Statuses = "error" | "success" | "idle" | "loading";
-type Locales = "es" | "en-US";
+type Statuses = "loading" | "idle" | "success" | "failed";

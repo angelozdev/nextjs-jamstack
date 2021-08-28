@@ -1,17 +1,19 @@
 import { Fragment } from "react";
+import Head from "next/head";
+import { getCategoryList } from "@services/categories";
 import { getPlantBySlug, getPlantList } from "@services/plants";
+import { EnvironmentVariables, Locales } from "@constants";
+import { Pane, Spinner } from "evergreen-ui";
 import { SinglePlant } from "@views";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 // types
 import type {
-  GetStaticPaths,
+  GetStaticPathsContext,
+  GetStaticPathsResult,
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
-import { Pane, Spinner } from "evergreen-ui";
-import { getCategoryList } from "@services/categories";
 
 interface Props {
   plant: Plant;
@@ -21,14 +23,21 @@ interface Props {
 
 interface Path {
   params: {
-    locale: Locales | string;
+    locale: Locales;
     slug: string;
   };
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  if (!locales)
+interface IGetStaticPathsContext extends GetStaticPathsContext {
+  locales?: Locales[];
+}
+
+export const getStaticPaths = async ({
+  locales,
+}: IGetStaticPathsContext): Promise<GetStaticPathsResult> => {
+  if (!locales || !Array.isArray(locales)) {
     throw new Error("You have to configure the locales in the next.config.js");
+  }
 
   const plants = await getPlantList({ limit: 10 });
   const paths: Path[] = plants.flatMap(({ slug }) => {
@@ -46,8 +55,10 @@ export const getStaticProps: GetStaticProps<Props> = async ({
   const slug = params?.slug;
 
   try {
-    if (typeof slug !== "string")
+    if (typeof slug !== "string") {
       throw new Error(`[ENTRY/:slug]: slug is invalid`);
+    }
+
     const plant = await getPlantBySlug(slug, preview, locale as Locales);
     const categories = await getCategoryList({
       limit: 10,
@@ -64,7 +75,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({
       revalidate: 5 * 60,
     };
   } catch (error) {
-    console.error(error);
+    if (EnvironmentVariables.node.env === "development") {
+      console.error(error);
+    }
     return { notFound: true };
   }
 };
