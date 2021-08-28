@@ -1,55 +1,14 @@
-import { useCallback } from "react";
 import NextLink from "next/link";
-import { EnvironmentVariables, Locales, Routes } from "@constants";
-import { Heading, TreeIcon, Pane, Link, SegmentedControl } from "evergreen-ui";
-import { Wrapper } from "@components";
+import { Routes } from "@constants";
+import { Heading, TreeIcon, Pane, Link, Badge } from "evergreen-ui";
+import { Languages, Wrapper } from "@components";
 import { useRouter } from "next/router";
-
-// types
-interface Option {
-  label: string;
-  value: Locales;
-}
-
-const localeList: Option[] = [
-  {
-    label: "ES",
-    value: Locales.SPANISH,
-  },
-  {
-    label: "EN",
-    value: Locales.ENGLISH,
-  },
-];
+import { useTranslation } from "next-i18next";
 
 function Header() {
+  const { t } = useTranslation("header");
   const router = useRouter();
-  const { locale, locales, asPath } = router;
-
-  const handleOnChangeLocale = useCallback(
-    (value: Locales) => {
-      if (locale === value) return;
-      window
-        .fetch(`/api/language`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ locale: value }),
-        })
-        .catch((error) => {
-          if (EnvironmentVariables.node.env === "development") {
-            console.error(error);
-          }
-        })
-        .finally(() => {
-          router.replace(asPath, undefined, { locale: value });
-        });
-    },
-    [locale, asPath, router]
-  );
-
-  if (!locales || !locale) {
-    return null;
-  }
+  const { locales } = router;
 
   return (
     <Pane is="header" elevation={1}>
@@ -66,20 +25,13 @@ function Header() {
                 <Heading is="h1" display="flex" gap=".5rem">
                   <TreeIcon color="green500" />
                   Treepedia
+                  <Badge color="green">{t("badge")}</Badge>
                 </Heading>
               </Link>
             </NextLink>
           </Pane>
 
-          {!!locales.length && (
-            <Pane>
-              <SegmentedControl
-                options={localeList}
-                value={locale}
-                onChange={(value) => handleOnChangeLocale(value as Locales)}
-              />
-            </Pane>
-          )}
+          {!!locales?.length && <Languages />}
         </Pane>
       </Wrapper>
     </Pane>

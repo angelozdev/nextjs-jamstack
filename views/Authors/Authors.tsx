@@ -1,6 +1,6 @@
 import { Heading, Pane, Tablist } from "evergreen-ui";
 import { AuthorTab, AuthorTabContent, Wrapper } from "@components";
-import { useTranslation } from "hooks";
+import { useTranslation } from "next-i18next";
 
 interface Props {
   authors: Author[];
@@ -8,13 +8,13 @@ interface Props {
 }
 
 function Authors({ authors, currentAuthor }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("top-stories");
   return (
     <Pane is="section" paddingY="2rem">
       <Wrapper maxWidth="1280px">
         <Pane marginBottom="2rem" textAlign="center">
           <Heading is="h1" size={900}>
-            {t({ id: "top_stories.title" })}
+            {t("title")}
           </Heading>
         </Pane>
         <Pane display="flex" gap="1rem" flexWrap="wrap">

@@ -9,6 +9,7 @@ export { Footer } from "./Footer";
 export { Header } from "./Header";
 export { Hero } from "./Hero";
 export { Image } from "./Image";
+export { Languages } from "./Languages";
 export { Layout } from "./Layout";
 export { PlantCard } from "./PlantCard";
 export { PlantList } from "./PlantList";

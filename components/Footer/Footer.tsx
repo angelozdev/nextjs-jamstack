@@ -1,10 +1,10 @@
 import { Link, Pane } from "evergreen-ui";
 import { Wrapper } from "@components";
+import { useTranslation } from "next-i18next";
 import { courses } from "./fixtures";
-import { useTranslation } from "hooks";
 
 function Footer() {
-  const { t } = useTranslation();
+  const { t } = useTranslation("footer");
   return (
     <Pane is="footer" background="gray400">
       <Wrapper maxWidth="1280px">
@@ -24,7 +24,7 @@ function Footer() {
               href={href}
               display="block"
             >
-              {t({ id })}
+              {t(id)}
             </Link>
           ))}
         </Pane>
