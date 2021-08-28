@@ -1,8 +1,11 @@
 import { Fragment } from "react";
+import Head from "next/head";
+import { getCategoryList } from "@services/categories";
 import { getPlantBySlug, getPlantList } from "@services/plants";
+import { EnvironmentVariables, Locales } from "@constants";
+import { Pane, Spinner } from "evergreen-ui";
 import { SinglePlant } from "@views";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 // types
 import type {
@@ -11,9 +14,6 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
-import { Pane, Spinner } from "evergreen-ui";
-import { getCategoryList } from "@services/categories";
-import { Locales } from "@constants";
 
 interface Props {
   plant: Plant;
@@ -55,8 +55,10 @@ export const getStaticProps: GetStaticProps<Props> = async ({
   const slug = params?.slug;
 
   try {
-    if (typeof slug !== "string")
+    if (typeof slug !== "string") {
       throw new Error(`[ENTRY/:slug]: slug is invalid`);
+    }
+
     const plant = await getPlantBySlug(slug, preview, locale as Locales);
     const categories = await getCategoryList({
       limit: 10,
@@ -73,7 +75,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({
       revalidate: 5 * 60,
     };
   } catch (error) {
-    console.error(error);
+    if (EnvironmentVariables.node.env === "development") {
+      console.error(error);
+    }
     return { notFound: true };
   }
 };

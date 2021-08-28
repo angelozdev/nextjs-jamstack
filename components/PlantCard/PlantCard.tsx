@@ -4,6 +4,7 @@ import { RichText, Image } from "@components";
 import { Routes } from "@constants";
 import { useMemo } from "react";
 import NextLink from "next/link";
+import { useTranslation } from "hooks";
 
 interface Props {
   image: Asset;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 function PlantCard({ image, plantName, description, slug }: Props) {
+  const { t } = useTranslation();
   const richText = useMemo(
     () => getRichText(description?.json),
     [description?.json]
@@ -58,7 +60,7 @@ function PlantCard({ image, plantName, description, slug }: Props) {
           }}
         >
           <Button is="a" appearance="minimal">
-            READ MORE
+            {t({ id: "button.read_more" })}
           </Button>
         </NextLink>
       </Pane>

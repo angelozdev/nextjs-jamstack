@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import NextLink from "next/link";
-import { Locales, Routes } from "@constants";
+import { EnvironmentVariables, Locales, Routes } from "@constants";
 import { Heading, TreeIcon, Pane, Link, SegmentedControl } from "evergreen-ui";
 import { Wrapper } from "@components";
 import { useRouter } from "next/router";
@@ -35,7 +35,11 @@ function Header() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ locale: value }),
         })
-        .catch(console.error)
+        .catch((error) => {
+          if (EnvironmentVariables.node.env === "development") {
+            console.error(error);
+          }
+        })
         .finally(() => {
           router.replace(asPath, undefined, { locale: value });
         });

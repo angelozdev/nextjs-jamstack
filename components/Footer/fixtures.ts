@@ -1,15 +1,15 @@
 type Course = {
   href: string;
-  text: string;
+  id: string;
 };
 
 export const courses: Course[] = [
   {
     href: "https://platzi.com/clases/nextjs-jamstack/",
-    text: "Curso de Next.js: Sitios Estáticos y Jamstack",
+    id: "courses.nextjs_static_sites.title",
   },
   {
     href: "https://platzi.com/clases/nextjs-deploy/",
-    text: "Curso de Next.js: Optimización y Deploy a Producción",
+    id: "courses.optimization_and_deploy.title",
   },
 ];

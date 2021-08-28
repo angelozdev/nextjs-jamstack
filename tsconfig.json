@@ -20,6 +20,7 @@
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
       "@constants": ["constants/index.ts"],
+      "@locales/*": ["locales/*"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@views": ["views/index.ts"]
