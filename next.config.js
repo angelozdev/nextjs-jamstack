@@ -1,3 +1,5 @@
+const { i18n } = require("./next-i18next.config");
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -6,10 +8,7 @@ const config = {
   images: {
     domains: ["images.ctfassets.net"],
   },
-  i18n: {
-    defaultLocale: "en-US",
-    locales: ["en-US", "es"],
-  },
+  i18n,
 };
 
 module.exports = config;

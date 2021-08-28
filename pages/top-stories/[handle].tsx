@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Authors } from "@views";
 import { getAuthorList } from "@services/authors";
 import ErrorPage from "@pages/_error";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { EnvironmentVariables } from "@constants";
 
 // types
@@ -16,10 +17,13 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
+  locale,
 }) => {
   const currentAuthor = params?.handle;
 
   try {
+    if (!locale) throw new Error("[top-stories]: locale is invalid");
+
     if (typeof currentAuthor !== "string")
       throw new Error(
         "[TOP_STORIES: getServerSideProps]: currentAuthor is invalid"
@@ -45,7 +49,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 
     return {
       props: {
-        data: { authors, currentAuthor },
+        ...(await serverSideTranslations(locale, [
+          "header",
+          "footer",
+          "top-stories",
+        ])),
+        data: {
+          authors,
+          currentAuthor,
+        },
         status: "success",
       },
     };

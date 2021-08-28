@@ -3,20 +3,20 @@ import NextLink from "next/link";
 import { Image } from "@components";
 import { Routes } from "@constants";
 import { useRouter } from "next/router";
-import { useTranslation } from "hooks";
+import { useTranslation } from "next-i18next";
 
 interface Props {
   recentPosts: Plant[];
 }
 
 function RecentPosts({ recentPosts }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("recent-posts");
   const { query } = useRouter();
   const currentPost = query?.slug;
   return (
     <Pane>
       <Heading is="h3" size={600}>
-        {t({ id: "recent_posts.section.title" })}
+        {t("title")}
       </Heading>
       {recentPosts.map(({ slug, plantName, image }) => {
         const isCurrentPost = slug === currentPost;

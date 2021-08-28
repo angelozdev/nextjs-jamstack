@@ -5,6 +5,7 @@ import { getPlantBySlug, getPlantList } from "@services/plants";
 import { EnvironmentVariables, Locales } from "@constants";
 import { Pane, Spinner } from "evergreen-ui";
 import { SinglePlant } from "@views";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 
 // types
@@ -55,6 +56,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({
   const slug = params?.slug;
 
   try {
+    if (!locale) throw new Error("[EntryPage]: locale is invlaid");
+
     if (typeof slug !== "string") {
       throw new Error(`[ENTRY/:slug]: slug is invalid`);
     }
@@ -71,7 +74,17 @@ export const getStaticProps: GetStaticProps<Props> = async ({
     });
 
     return {
-      props: { plant, categories, recentPosts },
+      props: {
+        ...(await serverSideTranslations(locale, [
+          "header",
+          "recent-posts",
+          "category-section",
+          "footer",
+        ])),
+        plant,
+        categories,
+        recentPosts,
+      },
       revalidate: 5 * 60,
     };
   } catch (error) {

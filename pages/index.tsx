@@ -1,9 +1,10 @@
 import { Fragment } from "react";
-import { Locales } from "@constants";
+import { EnvironmentVariables, Locales } from "@constants";
 import { getAuthorList } from "@services/authors";
 import { getPlantList } from "@services/plants";
 import { Home } from "@views";
 import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // types
 import type {
@@ -39,12 +40,21 @@ export const getStaticProps = async ({
 
     return {
       props: {
+        ...(await serverSideTranslations(locale, [
+          "header",
+          "plant-card",
+          "footer",
+          "author-section",
+        ])),
         plants,
         authors,
       },
       revalidate: 5 * 60,
     };
   } catch (error) {
+    if (EnvironmentVariables.node.env === "development") {
+      console.log(error);
+    }
     return {
       notFound: true,
     };

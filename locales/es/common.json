@@ -1,9 +1,9 @@
 {
   "authors.section.title": "Autores",
   "button.read_more": "LEER MÁS",
-  "categories.section.title": "Categorias",
+  "categories.section.title": "Categorías",
   "courses.nextjs_static_sites.title": "Curso de Next.js: Sitios Estáticos y Jamstack",
   "courses.optimization_and_deploy.title": "Curso de Next.js: Optimización y Deploy a Producción",
-  "recent_posts.section.title": "Posts Recientes",
+  "recent_posts.section.title": "Artículos Recientes",
   "top_stories.title": "Las Mejores 10 Historias"
 }
