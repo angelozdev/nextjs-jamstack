@@ -20,7 +20,7 @@ function Authors({ authors, currentAuthor }: Props) {
   const { query } = useRouter();
   const [plants, setPlants] = useState<Plant[] | null>(null);
   const { t } = useTranslation(["top-stories", "author-section"]);
-  const areTherPlants = !!plants?.length;
+  const areTherPlants = !!plants && !!plants?.length;
   const isLoading = plants === null;
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function Authors({ authors, currentAuthor }: Props) {
               {areTherPlants && (
                 <Fragment>
                   <Heading>{t("author-section:section.posts.title")}</Heading>
-                  <PlantList plants={plants} />
+                  <PlantList plants={plants || []} />
                 </Fragment>
               )}
             </Pane>
