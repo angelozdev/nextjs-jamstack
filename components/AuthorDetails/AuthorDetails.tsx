@@ -1,28 +1,40 @@
 import { Card, Heading, Pane, Paragraph } from "evergreen-ui";
 import { Image } from "@components";
 
+// type
+import type { AriaRole, ElementType } from "react";
+
 interface Props {
   handle: Author["handle"];
   photo: Asset;
   fullName: Author["fullName"];
   biography: Author["biography"];
-  currentAuthor: Author["handle"];
+  currentAuthor?: Author["handle"];
+  role?: AriaRole;
+  is?: ElementType;
 }
 
-function AuthorTabContent({
-  handle,
-  photo,
-  fullName,
+function AuthorDetails({
   biography,
+  fullName,
+  handle,
   currentAuthor,
+  photo,
+  role,
+  is = "div",
 }: Props) {
+  const isTabContent = role === "tabpanel";
+
   return (
     <Card
+      is={is}
       id={`panel-${handle}`}
-      role="tabpanel"
-      aria-labelledby={handle}
-      aria-hidden={handle !== currentAuthor}
-      display={handle === currentAuthor ? "flex" : "none"}
+      role={role}
+      aria-labelledby={isTabContent ? handle : undefined}
+      aria-hidden={isTabContent ? handle !== currentAuthor : false}
+      display={
+        isTabContent ? (handle === currentAuthor ? "flex" : "none") : "flex"
+      }
       gap="2rem"
       flexWrap="wrap"
       alignItems="center"
@@ -42,6 +54,7 @@ function AuthorTabContent({
           alt={fullName}
           fit="fill"
           radius={20}
+          format="png"
         />
       </Pane>
 
@@ -55,4 +68,4 @@ function AuthorTabContent({
   );
 }
 
-export default AuthorTabContent;
+export default AuthorDetails;

@@ -3,7 +3,6 @@ import Head from "next/head";
 import { getCategoryList } from "@services/categories";
 import { getPlantBySlug, getPlantList } from "@services/plants";
 import { EnvironmentVariables, Locales } from "@constants";
-import { Pane, Spinner } from "evergreen-ui";
 import { SinglePlant } from "@views";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
@@ -15,6 +14,7 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
+import { Loader } from "@components";
 
 interface Props {
   plant: Plant;
@@ -102,19 +102,7 @@ function Entry({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isFallback } = useRouter();
 
-  if (isFallback)
-    return (
-      <Pane
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="80vh"
-        gap="1rem"
-        flexDirection="column"
-      >
-        <Spinner /> Loading...
-      </Pane>
-    );
+  if (isFallback) return <Loader />;
 
   return (
     <Fragment>

@@ -53,6 +53,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
           "header",
           "footer",
           "top-stories",
+          "plant-card",
+          "author-section",
         ])),
         data: {
           authors,

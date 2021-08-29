@@ -1,4 +1,5 @@
 {
   "courses.nextjs_static_sites.title": "Next.js course: Static Sites and Jamstack",
-  "courses.optimization_and_deploy.title": "Next.js course: Optimization and Deploy"
+  "courses.optimization_and_deploy.title": "Next.js course: Optimization and Deploy",
+  "courses.internationalization.title": "Next.js course: Internalization"
 }

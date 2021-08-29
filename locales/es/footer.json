@@ -1,4 +1,5 @@
 {
   "courses.nextjs_static_sites.title": "Curso de Next.js: Sitios Estáticos y Jamstack",
-  "courses.optimization_and_deploy.title": "Curso de Next.js: Optimización y Deploy a Producción"
+  "courses.optimization_and_deploy.title": "Curso de Next.js: Optimización y Deploy a Producción",
+  "courses.internationalization.title": "Curso de Next.js: Internacionalización de Aplicaciones Web con i18n"
 }

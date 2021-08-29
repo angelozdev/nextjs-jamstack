@@ -1,6 +1,7 @@
 import { Badge, Heading, Pane, Paragraph } from "evergreen-ui";
 
 import {
+  AuthorDetails,
   CategorySection,
   Image,
   RecentPosts,
@@ -16,7 +17,7 @@ interface Props {
 
 function SinglePlant({ plant, categories, recentPosts }: Props) {
   const { plantName, image, description, author, category } = plant;
-  const { fullName, photo, biography } = author;
+  const { fullName, photo, biography, handle } = author;
   const { title } = category;
   const text = description?.json;
 
@@ -57,21 +58,12 @@ function SinglePlant({ plant, categories, recentPosts }: Props) {
                 gap="1rem"
                 flexWrap="wrap"
               >
-                {photo?.url && (
-                  <Pane flexBasis="200px">
-                    <Image
-                      src={photo.url}
-                      width={200}
-                      fit="fill"
-                      alt={fullName}
-                      aspectRatio="1:1"
-                    />
-                  </Pane>
-                )}
-                <Pane paddingY="1rem" flexBasis="500px" flexGrow={1}>
-                  <Heading size={700}>{fullName}</Heading>
-                  <Paragraph>{biography}</Paragraph>
-                </Pane>
+                <AuthorDetails
+                  fullName={fullName}
+                  photo={photo}
+                  handle={handle}
+                  biography={biography}
+                />
               </Pane>
             </Pane>
           </Pane>

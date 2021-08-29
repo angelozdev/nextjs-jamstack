@@ -22,48 +22,46 @@ function PlantCard({ image, plantName, description, slug }: Props) {
 
   return (
     <Card is="li" hoverElevation={1}>
-      {image?.url && (
-        <Pane textAlign="center">
-          <Image
-            aspectRatio="4:3"
-            src={image?.url}
-            alt={image.title}
-            width={400}
-            fit="fill"
-            objectFit="cover"
-          />
-        </Pane>
-      )}
+      <NextLink
+        href={{
+          pathname: Routes.SINGLE_PLANT,
+          query: { slug },
+        }}
+      >
+        <a>
+          {image?.url && (
+            <Pane margin="0" padding="0" is="figure" textAlign="center">
+              <Image
+                aspectRatio="4:3"
+                src={image?.url}
+                alt={image.title}
+                width={600}
+                fit="fill"
+                objectFit="cover"
+              />
+            </Pane>
+          )}
 
-      <Pane padding="1rem">
-        <Heading is="h3">{plantName}</Heading>
-        {richText && (
-          <RichText
-            maxHeight={1.5 * 3 + "rem"}
-            overflow="hidden"
-            style={{
-              WebkitLineClamp: 3,
-              lineClamp: 3,
-              boxOrient: "vertical",
-              WebkitBoxOrient: "vertical",
-              MozBoxOrient: "vertical",
-              display: "-webkit-box",
-            }}
-            document={richText}
-          />
-        )}
-        <NextLink
-          passHref
-          href={{
-            pathname: Routes.SINGLE_PLANT,
-            query: { slug },
-          }}
-        >
-          <Button is="a" appearance="minimal">
-            {t("button.read_more")}
-          </Button>
-        </NextLink>
-      </Pane>
+          <Pane padding="1rem">
+            <Heading is="h3">{plantName}</Heading>
+            {richText && (
+              <RichText
+                maxHeight={1.5 * 3 + "rem"}
+                overflow="hidden"
+                style={{
+                  WebkitLineClamp: 3,
+                  lineClamp: 3,
+                  boxOrient: "vertical",
+                  WebkitBoxOrient: "vertical",
+                  MozBoxOrient: "vertical",
+                  display: "-webkit-box",
+                }}
+                document={richText}
+              />
+            )}
+          </Pane>
+        </a>
+      </NextLink>
     </Card>
   );
 }

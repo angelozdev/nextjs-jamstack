@@ -25,6 +25,7 @@ const query = gql`
         }
         author {
           fullName
+          handle
           photo {
             url
             width
