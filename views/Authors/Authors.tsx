@@ -1,6 +1,15 @@
-import { Heading, Pane, Tablist } from "evergreen-ui";
-import { AuthorTab, AuthorTabContent, Wrapper } from "@components";
+import { Heading, Pane, Paragraph, Tablist } from "evergreen-ui";
+import {
+  AuthorTab,
+  AuthorDetails,
+  Wrapper,
+  PlantList,
+  Loader,
+} from "@components";
 import { useTranslation } from "next-i18next";
+import { Fragment, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getPlantsByAuthor } from "@services/plants";
 
 interface Props {
   authors: Author[];
@@ -8,13 +17,27 @@ interface Props {
 }
 
 function Authors({ authors, currentAuthor }: Props) {
-  const { t } = useTranslation("top-stories");
+  const { query } = useRouter();
+  const [plants, setPlants] = useState<Plant[] | null>(null);
+  const { t } = useTranslation(["top-stories", "author-section"]);
+  const areTherPlants = !!plants?.length;
+  const isLoading = plants === null;
+
+  useEffect(() => {
+    const author = query?.handle;
+    if (typeof author !== "string" || !author) return;
+    setPlants(null);
+    getPlantsByAuthor(author, { limit: 10 })
+      .then(setPlants)
+      .catch(() => setPlants([]));
+  }, [query?.handle]);
+
   return (
     <Pane is="section" paddingY="2rem">
       <Wrapper maxWidth="1280px">
         <Pane marginBottom="2rem" textAlign="center">
           <Heading is="h1" size={900}>
-            {t("title")}
+            {t("top-stories:title")}
           </Heading>
         </Pane>
         <Pane display="flex" gap="1rem" flexWrap="wrap">
@@ -29,16 +52,32 @@ function Authors({ authors, currentAuthor }: Props) {
             ))}
           </Tablist>
           <Pane flexBasis="500px" flexGrow={100}>
-            {authors.map(({ handle, biography, photo, fullName }) => (
-              <AuthorTabContent
-                key={handle}
-                handle={handle}
-                biography={biography}
-                photo={photo}
-                fullName={fullName}
-                currentAuthor={currentAuthor}
-              />
-            ))}
+            <Pane>
+              {authors.map(({ handle, biography, photo, fullName }) => (
+                <AuthorDetails
+                  key={handle}
+                  handle={handle}
+                  biography={biography}
+                  photo={photo}
+                  fullName={fullName}
+                  currentAuthor={currentAuthor}
+                  role="tabpanel"
+                />
+              ))}
+            </Pane>
+
+            <Pane borderTop paddingY="1rem" marginTop="2rem">
+              {isLoading && <Loader />}
+              {!areTherPlants && !isLoading && (
+                <Paragraph>This author has not posted yet.</Paragraph>
+              )}
+              {areTherPlants && (
+                <Fragment>
+                  <Heading>{t("author-section:section.posts.title")}</Heading>
+                  <PlantList plants={plants} />
+                </Fragment>
+              )}
+            </Pane>
           </Pane>
         </Pane>
       </Wrapper>

@@ -152,4 +152,5 @@ interface Options<Order> {
   limit?: number;
   order?: [Order] | Order;
   locale?: import("@constants").Locales;
+  where?: Record<string, string | undefined>;
 }

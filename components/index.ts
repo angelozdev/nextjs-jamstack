@@ -1,8 +1,8 @@
 export { AuthorCard } from "./AuthorCard";
+export { AuthorDetails } from "./AuthorDetails";
 export { AuthorList } from "./AuthorList";
 export { AuthorsSection } from "./AuthorsSection";
 export { AuthorTab } from "./AuthorTab";
-export { AuthorTabContent } from "./AuthorTabContent";
 export { CategoryCard } from "./CategoryCard";
 export { CategorySection } from "./CategorySection";
 export { Footer } from "./Footer";
@@ -11,6 +11,7 @@ export { Hero } from "./Hero";
 export { Image } from "./Image";
 export { Languages } from "./Languages";
 export { Layout } from "./Layout";
+export { Loader } from "./Loader";
 export { PlantCard } from "./PlantCard";
 export { PlantList } from "./PlantList";
 export { PreviewModeBanner } from "./PreviewModeBanner";
