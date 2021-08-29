@@ -1,6 +1,15 @@
 import NextLink from "next/link";
 import { Routes } from "@constants";
-import { Heading, TreeIcon, Pane, Link, Badge } from "evergreen-ui";
+import {
+  Heading,
+  TreeIcon,
+  Pane,
+  Link,
+  Badge,
+  Button,
+  IconButton,
+  SearchIcon,
+} from "evergreen-ui";
 import { Languages, Wrapper } from "@components";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -31,7 +40,17 @@ function Header() {
             </NextLink>
           </Pane>
 
-          {!!locales?.length && <Languages />}
+          <Pane display="flex" gap="1rem">
+            {!!locales?.length && <Languages />}
+            <NextLink href={Routes.SEARCH} passHref>
+              <IconButton
+                intent="warning"
+                appearance="primary"
+                is="a"
+                icon={SearchIcon}
+              />
+            </NextLink>
+          </Pane>
         </Pane>
       </Wrapper>
     </Pane>

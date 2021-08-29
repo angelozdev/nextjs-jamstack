@@ -14,6 +14,8 @@ function PlantList({ plants = [] }: Props) {
       listStyle="none"
       paddingLeft="0"
       gap="1rem"
+      justifyItems="center"
+      justifyContent="space-between"
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
     >
       {plants.map(({ plantName, sys, image, description, slug }) => (

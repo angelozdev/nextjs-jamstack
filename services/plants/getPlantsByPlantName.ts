@@ -8,14 +8,14 @@ const query = gql`
     $skip: Int = 0
     $order: [PlantOrder]
     $locale: String
-    $author: String!
+    $term: String!
   ) {
     plantCollection(
       limit: $limit
       skip: $skip
       order: $order
       locale: $locale
-      where: { author: { handle: $author } }
+      where: { plantName_contains: $term }
     ) {
       items {
         sys {
@@ -36,24 +36,15 @@ const query = gql`
 `;
 
 async function getPlantsByAuthor(
-  author: string,
+  term: string = "",
   options: Options<PlantOrder> = {}
 ): Promise<Plant[]> {
-  const {
-    limit = 10,
-    skip = 0,
-    order = [],
-    locale = Locales.ENGLISH,
-  } = options;
-
-  if (!author) {
-    throw new Error("[getPlantsByAuthor]: invalid author");
-  }
+  const { limit = 9, skip = 0, order = [], locale = Locales.ENGLISH } = options;
 
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,
-      variables: { limit, skip, order, locale, author },
+      variables: { limit, skip, order, locale, term },
     })
     .then(({ data }) => {
       const plants = data?.plantCollection?.items;

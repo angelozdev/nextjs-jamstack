@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { EnvironmentVariables, Locales } from "@constants";
-import { Button, DotIcon, Pane } from "evergreen-ui";
+import { Button, Pane, TranslateIcon } from "evergreen-ui";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
@@ -53,16 +53,16 @@ function Languages() {
     <Pane>
       {localeList.map(({ label, value }) => {
         const isActive = value === locale;
+        if (isActive) return;
         return (
           <Button
-            iconAfter={isActive ? null : <DotIcon />}
-            disabled={isActive}
+            iconBefore={<TranslateIcon />}
             intent="info"
             appearance="minimal"
             onClick={() => handleOnChangeLocale(value)}
             key={value}
           >
-            {label}
+            <sup>{label}</sup>
           </Button>
         );
       })}
