@@ -21,7 +21,7 @@ function PlantCard({ image, plantName, description, slug }: Props) {
   );
 
   return (
-    <Card is="li" hoverElevation={1}>
+    <Card maxWidth="400px" is="li" hoverElevation={1}>
       <NextLink
         href={{
           pathname: Routes.SINGLE_PLANT,

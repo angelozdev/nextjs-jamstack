@@ -69,7 +69,7 @@ function Authors({ authors, currentAuthor }: Props) {
             <Pane borderTop paddingY="1rem" marginTop="2rem">
               {isLoading && <Loader />}
               {!areTherPlants && !isLoading && (
-                <Paragraph>This author has not posted yet.</Paragraph>
+                <Paragraph>{t("posts_not_found")}</Paragraph>
               )}
               {areTherPlants && (
                 <Fragment>
