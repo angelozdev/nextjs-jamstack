@@ -1,24 +1,27 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { Pane, Paragraph, SearchInput } from "evergreen-ui";
 import { useDebounce } from "hooks";
 import { useTranslation } from "next-i18next";
 import { getPlantsByPlantName } from "@services/plants";
 import { Loader, PlantList, Wrapper } from "@components";
+import { initialState, actions, reducer } from "./state";
 
 // types
 import type { ChangeEvent } from "react";
 
 function SearchView() {
   // hooks
+  const [{ data: plants, status }, disptach] = useReducer(
+    reducer,
+    initialState
+  );
   const { t } = useTranslation("search");
-  const [plants, setPlants] = useState<Plant[] | null>(null);
   const [value, setValue] = useState("");
   const debounceValue = useDebounce(value, 500);
 
-  const isLoading = plants === null && value;
-  const areTherePlants = !!plants && plants?.length > 0;
-  const plantsNotFound =
-    !isLoading && !areTherePlants && value && debounceValue;
+  const isLoading = status === "loading";
+  const areTherePlants = status === "success" && plants.length > 0;
+  const plantsNotFound = status === "success" && plants.length === 0;
 
   const handleChangeValue = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,13 +33,17 @@ function SearchView() {
   );
 
   useEffect(() => {
-    if (debounceValue) {
-      setPlants(null);
+    if (debounceValue && debounceValue.length > 2) {
+      disptach(actions.plantSearchingIsLoading());
       getPlantsByPlantName(debounceValue, { limit: 8 })
-        .then(setPlants)
-        .catch(() => setPlants([]));
+        .then((plants) => {
+          disptach(actions.plantSearchingSuccess(plants));
+        })
+        .catch((error) => {
+          disptach(actions.plantSearchingFailed(error));
+        });
     } else {
-      setPlants(null);
+      disptach(actions.plantSearchingIdle());
     }
   }, [debounceValue]);
 
