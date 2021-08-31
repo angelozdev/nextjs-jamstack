@@ -3,7 +3,7 @@ import { Types } from "./";
 
 export interface State {
   status: Statuses;
-  data: Plant[];
+  data: PlantCollection;
   error: Error | null | ApolloError;
 }
 
@@ -18,7 +18,7 @@ interface FailedAction {
 
 interface SuccessAction {
   type: Types.PLANT_SEARCHING_SUCCESS;
-  plants: State["data"];
+  data: State["data"];
 }
 
 interface IdleAction {
@@ -29,7 +29,7 @@ export type ActionCreatorIsLoading = () => IsLoadingAction;
 export type ActionCreatorFailed = (
   error: NonNullable<State["error"]>
 ) => FailedAction;
-export type ActionCreatorSuccess = (plants: State["data"]) => SuccessAction;
+export type ActionCreatorSuccess = (data: State["data"]) => SuccessAction;
 export type ActionCreatorIdle = () => IdleAction;
 
 export type Actions =

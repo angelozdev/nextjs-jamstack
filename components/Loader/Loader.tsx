@@ -1,6 +1,8 @@
-import { Pane, Spinner } from "evergreen-ui";
+import { Pane, Spinner, PaneProps } from "evergreen-ui";
 
-function Loader() {
+interface Props extends PaneProps {}
+
+function Loader(props: Props) {
   return (
     <Pane
       display="flex"
@@ -9,6 +11,7 @@ function Loader() {
       minHeight="30vh"
       gap="1rem"
       flexDirection="column"
+      {...props}
     >
       <Spinner />
       <span>Loading...</span>

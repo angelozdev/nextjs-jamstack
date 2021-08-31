@@ -1,7 +1,12 @@
 import { State } from "./types";
 
 const initialState: State = {
-  data: [],
+  data: {
+    items: [],
+    limit: 0,
+    skip: 0,
+    total: 0,
+  },
   error: null,
   status: "idle",
 };

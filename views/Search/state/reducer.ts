@@ -21,7 +21,10 @@ function reducer(state: State, action: Actions): State {
     case PLANT_SEARCHING_SUCCESS:
       return {
         ...state,
-        data: action.plants,
+        data: {
+          ...action.data,
+          items: [...state.data.items, ...action.data.items],
+        },
         status: "success",
       };
 

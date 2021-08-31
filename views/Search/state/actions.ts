@@ -15,9 +15,9 @@ export const plantSearchingFailed: ActionCreatorFailed = (error) => ({
   type: Types.PLANT_SEARCHING_FAILED,
 });
 
-export const plantSearchingSuccess: ActionCreatorSuccess = (plants) => ({
+export const plantSearchingSuccess: ActionCreatorSuccess = (data) => ({
   type: Types.PLANT_SEARCHING_SUCCESS,
-  plants,
+  data,
 });
 
 export const plantSearchingIdle: ActionCreatorIdle = () => ({
