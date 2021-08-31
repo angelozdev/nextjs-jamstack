@@ -17,6 +17,9 @@ const query = gql`
       locale: $locale
       where: { plantName_contains: $term }
     ) {
+      skip
+      limit
+      total
       items {
         sys {
           id
@@ -38,7 +41,7 @@ const query = gql`
 async function getPlantsByAuthor(
   term: string = "",
   options: Options<PlantOrder> = {}
-): Promise<Plant[]> {
+): Promise<PlantCollection> {
   const { limit = 9, skip = 0, order = [], locale = Locales.ENGLISH } = options;
 
   return client
@@ -49,7 +52,7 @@ async function getPlantsByAuthor(
     .then(({ data }) => {
       const plants = data?.plantCollection?.items;
       if (!plants) throw new Error("[SERVICES]: plants not found");
-      return plants;
+      return data?.plantCollection;
     });
 }
 
