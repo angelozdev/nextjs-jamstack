@@ -3,7 +3,7 @@ import { Heading, Pane, Paragraph, Tablist } from "evergreen-ui";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 
-import { getPlantsByAuthor } from "@api/services/plants";
+import { getPlantsByAuthor } from "@services/plants";
 import {
   AuthorTab,
   AuthorDetails,

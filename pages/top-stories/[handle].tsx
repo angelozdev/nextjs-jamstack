@@ -4,7 +4,7 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Authors } from "@views";
-import { getAuthorList } from "@api/services/authors";
+import { getAuthorList } from "@services/authors";
 import ErrorPage from "@pages/_error";
 import { EnvironmentVariables } from "@utils/constants";
 
