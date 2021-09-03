@@ -4,8 +4,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 
 import { SinglePlant } from "@views";
-import { getCategoryList } from "@api/services/categories";
-import { getPlantBySlug, getPlantList } from "@api/services/plants";
+import { getCategoryList } from "@services/categories";
+import { getPlantBySlug, getPlantList } from "services/plants";
 import { EnvironmentVariables, Locales } from "@utils/constants";
 
 // types

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useReducer } from "react";
 
 import { Context, reducer, initialState, actions } from "./";
-import { getPlantsByPlantName } from "@api/services/plants";
+import { getPlantsByPlantName } from "@services/plants";
 
 // types
 import type { PropsWithChildren } from "react";

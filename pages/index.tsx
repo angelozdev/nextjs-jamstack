@@ -3,8 +3,8 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { EnvironmentVariables, Locales } from "@utils/constants";
-import { getAuthorList } from "@api/services/authors";
-import { getPlantList } from "@api/services/plants";
+import { getAuthorList } from "@services/authors";
+import { getPlantList } from "@services/plants";
 import { Home } from "@views";
 
 // types

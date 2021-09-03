@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ApolloError, isApolloError } from "@apollo/client";
 
 import { EnvironmentVariables } from "@utils/constants";
-import { getPlantBySlug } from "@api/services/plants";
+import { getPlantBySlug } from "@services/plants";
 
 const { contentful, node } = EnvironmentVariables;
 
