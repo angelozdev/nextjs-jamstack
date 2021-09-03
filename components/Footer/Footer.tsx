@@ -2,6 +2,7 @@ import { Link, Pane } from "evergreen-ui";
 import { Wrapper } from "@components";
 import { useTranslation } from "next-i18next";
 import { courses } from "./fixtures";
+import { memo } from "react";
 
 function Footer() {
   const { t } = useTranslation("footer");
@@ -33,4 +34,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

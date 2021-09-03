@@ -1,9 +1,10 @@
 import { Card, Heading, Link, Pane, Paragraph } from "evergreen-ui";
 import NextLink from "next/link";
-import { Image } from "@components";
-import { Routes } from "@constants";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+
+import { Image } from "@components";
+import { Routes } from "@utils/constants";
 
 interface Props {
   recentPosts: Plant[];

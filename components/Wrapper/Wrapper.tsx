@@ -1,7 +1,7 @@
 import { Pane } from "evergreen-ui";
 
 // types
-import type { PropsWithChildren } from "react";
+import { memo, PropsWithChildren } from "react";
 interface Props {
   maxWidth: "1280px" | "1024px" | "768px" | "425px" | "600px";
   hasPadding?: boolean;
@@ -23,4 +23,4 @@ function Wrapper({
   );
 }
 
-export default Wrapper;
+export default memo(Wrapper);

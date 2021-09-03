@@ -1,24 +1,18 @@
-import { EnvironmentVariables } from "@constants";
+import { EnvironmentVariables } from "@utils/constants";
 import { initialState } from "./";
-import { Types } from "./constants";
-import { Actions, State } from "./types";
+import { State, Types, Actions } from "./types";
 
-const {
-  PLANT_SEARCHING_FAILED,
-  PLANT_SEARCHING_LOADING,
-  PLANT_SEARCHING_SUCCESS,
-  PLANT_SEARCHING_IDLE,
-} = Types;
+const { node } = EnvironmentVariables;
 
 function reducer(state: State, action: Actions): State {
   const { type } = action;
   switch (type) {
-    case PLANT_SEARCHING_LOADING:
+    case Types.PLANT_SEARCHING_LOADING:
       return {
         ...state,
         status: "loading",
       };
-    case PLANT_SEARCHING_SUCCESS:
+    case Types.PLANT_SEARCHING_SUCCESS:
       return {
         ...state,
         data: {
@@ -28,20 +22,20 @@ function reducer(state: State, action: Actions): State {
         status: "success",
       };
 
-    case PLANT_SEARCHING_FAILED:
+    case Types.PLANT_SEARCHING_FAILED:
       return {
         ...state,
         error: action.error,
         status: "failed",
       };
 
-    case PLANT_SEARCHING_IDLE: {
+    case Types.PLANT_SEARCHING_IDLE: {
       return {
         ...initialState,
       };
     }
     default:
-      if (EnvironmentVariables.node.env === "development") {
+      if (node.env === "development") {
         throw new Error(`[SearchState]: ${type} is invalid`);
       }
       return state;

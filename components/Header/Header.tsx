@@ -1,23 +1,30 @@
+import { memo } from "react";
 import NextLink from "next/link";
-import { Routes } from "@constants";
-import {
-  Heading,
-  TreeIcon,
-  Pane,
-  Link,
-  Badge,
-  Button,
-  IconButton,
-  SearchIcon,
-} from "evergreen-ui";
-import { Languages, Wrapper } from "@components";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import {
+  Badge,
+  Heading,
+  IconButton,
+  Link,
+  Pane,
+  SearchIcon,
+  TreeIcon,
+} from "evergreen-ui";
+
+import { useSearchContext } from "@contexts/search";
+import { Languages, Wrapper } from "@components";
+import { Routes } from "@utils/constants";
 
 function Header() {
   const { t } = useTranslation("header");
   const router = useRouter();
+  const { state } = useSearchContext();
+  const { status, data } = state;
   const { locales } = router;
+
+  const dataLength = data.items.length;
+  const isSearchRoute = router.pathname === Routes.SEARCH;
 
   return (
     <Pane is="header" elevation={1}>
@@ -42,12 +49,17 @@ function Header() {
 
           <Pane display="flex" gap="1rem">
             {!!locales?.length && <Languages />}
+
             <NextLink href={Routes.SEARCH} passHref>
               <IconButton
-                intent="warning"
-                appearance="primary"
+                disabled={isSearchRoute}
+                intent="success"
+                appearance="minimal"
                 is="a"
-                icon={SearchIcon}
+                icon={
+                  isSearchRoute ? () => <Badge>{dataLength}</Badge> : SearchIcon
+                }
+                isLoading={status === "loading"}
               />
             </NextLink>
           </Pane>
@@ -57,4 +69,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

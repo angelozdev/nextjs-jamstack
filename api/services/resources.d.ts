@@ -151,6 +151,6 @@ interface Options<Order> {
   skip?: number;
   limit?: number;
   order?: [Order] | Order;
-  locale?: import("@constants").Locales;
+  locale?: import("@utils/constants").Locales;
   where?: Record<string, string | undefined>;
 }

@@ -1,5 +1,6 @@
-import { getAuthorList } from "@services/authors";
 import NextError from "next/error";
+
+import { getAuthorList } from "@api/services/authors";
 
 // types
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";

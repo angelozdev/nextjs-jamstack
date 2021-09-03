@@ -1,5 +1,6 @@
 import { Pane } from "evergreen-ui";
 import { PlantCard } from "@components";
+import { memo } from "react";
 
 // types
 interface Props {
@@ -31,4 +32,4 @@ function PlantList({ plants = [] }: Props) {
   );
 }
 
-export default PlantList;
+export default memo(PlantList);

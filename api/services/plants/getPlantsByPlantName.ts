@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { client } from "@apollo";
-import { Locales } from "@constants";
+import { Locales } from "@utils/constants";
 
 const query = gql`
   query getPlantList(

@@ -1,10 +1,10 @@
-import { Button, Card, Heading, Pane } from "evergreen-ui";
-import { getRichText } from "./utils";
-import { RichText, Image } from "@components";
-import { Routes } from "@constants";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
+import { Card, Heading, Pane } from "evergreen-ui";
 import NextLink from "next/link";
-import { useTranslation } from "next-i18next";
+import { getRichText } from "./utils";
+
+import { RichText, Image } from "@components";
+import { Routes } from "@utils/constants";
 
 interface Props {
   image: Asset;
@@ -14,7 +14,6 @@ interface Props {
 }
 
 function PlantCard({ image, plantName, description, slug }: Props) {
-  const { t } = useTranslation("plant-card");
   const richText = useMemo(
     () => getRichText(description?.json),
     [description?.json]
@@ -66,4 +65,4 @@ function PlantCard({ image, plantName, description, slug }: Props) {
   );
 }
 
-export default PlantCard;
+export default memo(PlantCard);

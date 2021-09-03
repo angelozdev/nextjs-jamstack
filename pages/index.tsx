@@ -1,10 +1,11 @@
 import { Fragment } from "react";
-import { EnvironmentVariables, Locales } from "@constants";
-import { getAuthorList } from "@services/authors";
-import { getPlantList } from "@services/plants";
-import { Home } from "@views";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { EnvironmentVariables, Locales } from "@utils/constants";
+import { getAuthorList } from "@api/services/authors";
+import { getPlantList } from "@api/services/plants";
+import { Home } from "@views";
 
 // types
 import type {
@@ -34,7 +35,7 @@ export const getStaticProps = async ({
     const plants = await getPlantList({
       limit: 9,
       locale,
-      order: "sys_publishedAt_DESC",
+      order: "sys_id_ASC",
     });
     const authors = await getAuthorList({ limit: 4 });
 

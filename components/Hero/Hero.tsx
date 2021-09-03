@@ -1,10 +1,10 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { Heading, Pane, Link } from "evergreen-ui";
 
 import { Wrapper, Image } from "@components";
-import { Routes } from "@constants";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { Routes } from "@utils/constants";
 
 function Hero({ image, plantName, slug }: Plant) {
   const router = useRouter();

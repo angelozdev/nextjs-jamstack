@@ -1,6 +1,7 @@
-import { Routes } from "@constants";
 import { Tab } from "evergreen-ui";
 import NextLink from "next/link";
+
+import { Routes } from "@utils/constants";
 
 interface Props {
   handle: Author["handle"];

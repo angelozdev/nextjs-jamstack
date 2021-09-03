@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { client } from "@apollo";
-import { Locales } from "@constants";
+import { Locales } from "@utils/constants";
 
 const query = gql`
   query getPlantList(
@@ -8,35 +8,37 @@ const query = gql`
     $skip: Int = 0
     $order: [PlantOrder]
     $locale: String
-    $author: String!
   ) {
     plantCollection(
       limit: $limit
       skip: $skip
       order: $order
       locale: $locale
-      where: { author: { handle: $author } }
     ) {
+      limit
+      skip
+      total
       items {
-        sys {
-          id
-        }
-        plantName
+        slug
         description {
           json
         }
-        slug
+        plantName
+        sys {
+          id
+        }
         image {
           url
           title
+          width
+          height
         }
       }
     }
   }
 `;
 
-async function getPlantsByAuthor(
-  author: string,
+async function getPlantList(
   options: Options<PlantOrder> = {}
 ): Promise<Plant[]> {
   const {
@@ -45,21 +47,16 @@ async function getPlantsByAuthor(
     order = [],
     locale = Locales.ENGLISH,
   } = options;
-
-  if (!author) {
-    throw new Error("[getPlantsByAuthor]: invalid author");
-  }
-
   return client
     .query<{ plantCollection: PlantCollection }>({
       query,
-      variables: { limit, skip, order, locale, author },
+      variables: { limit, skip, order, locale },
     })
     .then(({ data }) => {
-      const plants = data?.plantCollection?.items;
-      if (!plants) throw new Error("[SERVICES]: plants not found");
-      return plants;
+      if (!data?.plantCollection?.items?.length)
+        throw new Error("[SERVICES]: plants not foun");
+      return data.plantCollection.items;
     });
 }
 
-export default getPlantsByAuthor;
+export default getPlantList;
