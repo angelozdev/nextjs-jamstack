@@ -1,5 +1,7 @@
+import { memo } from "react";
 import NextLink from "next/link";
-import { Routes } from "@constants";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import {
   Badge,
   Heading,
@@ -9,11 +11,10 @@ import {
   SearchIcon,
   TreeIcon,
 } from "evergreen-ui";
+
+import { useSearchContext } from "@contexts/search";
 import { Languages, Wrapper } from "@components";
-import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-import { memo } from "react";
-import { useSearchContext } from "contexts/search";
+import { Routes } from "@utils/constants";
 
 function Header() {
   const { t } = useTranslation("header");

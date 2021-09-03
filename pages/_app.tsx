@@ -1,7 +1,8 @@
 import "styles/globals.css";
-import { Layout } from "@components";
 import { appWithTranslation } from "next-i18next";
-import { Provider } from "contexts/search";
+
+import { Layout } from "@components";
+import { Provider } from "@contexts/search";
 
 // types
 import type { AppProps } from "next/app";

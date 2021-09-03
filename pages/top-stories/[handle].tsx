@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Authors } from "@views";
-import { getAuthorList } from "@services/authors";
-import ErrorPage from "@pages/_error";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { EnvironmentVariables } from "@constants";
+
+import { Authors } from "@views";
+import { getAuthorList } from "@api/services/authors";
+import ErrorPage from "@pages/_error";
+import { EnvironmentVariables } from "@utils/constants";
 
 // types
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";

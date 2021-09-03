@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { Routes } from "@constants";
 import { Button, LabTestIcon, Pane, Portal, Tooltip } from "evergreen-ui";
+
+import { Routes } from "@utils/constants";
 
 function PreviewModeBanner() {
   const router = useRouter();

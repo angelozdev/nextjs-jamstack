@@ -1,12 +1,13 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Pane, Paragraph, SearchInput } from "evergreen-ui";
-import { useDebounce, useIntersectionObserver } from "hooks";
 import { useTranslation } from "next-i18next";
+
+import { useDebounce, useIntersectionObserver } from "@utils/hooks";
 import { Loader, PlantList, Wrapper } from "@components";
+import { useSearchContext } from "@contexts/search";
 
 // types
 import type { ChangeEvent } from "react";
-import { useSearchContext } from "contexts/search";
 
 function SearchView() {
   // hooks
@@ -22,7 +23,8 @@ function SearchView() {
   const areTherePlants = plants.length > 0;
   const plantsNotFound = status === "success" && plants.length === 0;
   const { isVisible } = useIntersectionObserver(
-    areTherePlants ? visorRef : null
+    areTherePlants ? visorRef : null,
+    { rootMargin: "200px" }
   );
 
   const handleChangeValue = useCallback(
@@ -59,12 +61,6 @@ function SearchView() {
         </Pane>
 
         <Pane>
-          {status === "failed" && error && (
-            <Alert intent="danger" title={`[${error.name.toUpperCase()}]`}>
-              {error.message}
-            </Alert>
-          )}
-
           {plantsNotFound && (
             <Paragraph>
               {t("plants_not_found")} &quot;{debounceValue}&quot;
@@ -76,6 +72,12 @@ function SearchView() {
               <PlantList plants={plants} />
               <Pane width="100%" height="1rem" ref={visorRef} />
             </Pane>
+          )}
+
+          {status === "failed" && error && (
+            <Alert intent="danger" title={error.name}>
+              {error.message}
+            </Alert>
           )}
 
           {isLoading && <Loader minHeight="2rem" paddingY="2rem" />}

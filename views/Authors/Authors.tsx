@@ -1,4 +1,9 @@
+import { Fragment, useEffect, useState } from "react";
 import { Heading, Pane, Paragraph, Tablist } from "evergreen-ui";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+
+import { getPlantsByAuthor } from "@api/services/plants";
 import {
   AuthorTab,
   AuthorDetails,
@@ -6,10 +11,6 @@ import {
   PlantList,
   Loader,
 } from "@components";
-import { useTranslation } from "next-i18next";
-import { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { getPlantsByAuthor } from "@services/plants";
 
 interface Props {
   authors: Author[];

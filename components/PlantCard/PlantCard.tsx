@@ -1,9 +1,10 @@
-import { Card, Heading, Pane } from "evergreen-ui";
-import { getRichText } from "./utils";
-import { RichText, Image } from "@components";
-import { Routes } from "@constants";
 import { memo, useMemo } from "react";
+import { Card, Heading, Pane } from "evergreen-ui";
 import NextLink from "next/link";
+import { getRichText } from "./utils";
+
+import { RichText, Image } from "@components";
+import { Routes } from "@utils/constants";
 
 interface Props {
   image: Asset;

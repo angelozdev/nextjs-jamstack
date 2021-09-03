@@ -1,7 +1,8 @@
 import { Link, Pane, Paragraph } from "evergreen-ui";
-import { Image } from "@components";
 import NextLink from "next/link";
-import { Routes } from "@constants";
+
+import { Image } from "@components";
+import { Routes } from "@utils/constants";
 
 interface Props {
   fullName: string;

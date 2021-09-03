@@ -1,4 +1,4 @@
-import { EnvironmentVariables } from "@constants";
+import { EnvironmentVariables } from "@utils/constants";
 import { initialState } from "./";
 import { State, Types, Actions } from "./types";
 

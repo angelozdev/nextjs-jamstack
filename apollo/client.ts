@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { EnvironmentVariables } from "@constants";
+import { EnvironmentVariables } from "@utils/constants";
 
 const { contentful } = EnvironmentVariables;
 

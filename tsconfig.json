@@ -15,14 +15,16 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@api/*": ["pages/api/*"],
+      "@api/*": ["./api/*"],
       "@apollo": ["apollo/index.ts"],
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
-      "@constants": ["constants/index.ts"],
+      "@contexts/*": ["./contexts/*"],
       "@locales/*": ["locales/*"],
       "@pages/*": ["pages/*"],
-      "@services/*": ["services/*"],
+      "@services/*": ["api/services/*"],
+      "@utils": ["./utils/index.ts"],
+      "@utils/*": ["./utils/*"],
       "@views": ["views/index.ts"]
     }
   },
@@ -30,7 +32,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "services/resources.d.ts",
+    "api/services/resources.d.ts",
     "global-types.d.ts"
   ],
   "exclude": ["node_modules"]

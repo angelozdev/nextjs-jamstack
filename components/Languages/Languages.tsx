@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from "react";
-import { EnvironmentVariables, Locales } from "@constants";
 import { Button, Pane, TranslateIcon } from "evergreen-ui";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+
+import { EnvironmentVariables, Locales } from "@utils/constants";
 
 // types
 interface Option {

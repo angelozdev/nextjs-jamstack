@@ -1,5 +1,5 @@
-import { Context } from "contexts/search";
 import { useContext } from "react";
+import { Context } from "@contexts/search";
 
 function useSearchContext() {
   const data = useContext(Context);

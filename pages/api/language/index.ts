@@ -1,6 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
-import { Locales } from "@constants";
+
+import { Locales } from "@utils/constants";
 
 const PREFERRED_LOCALE_COOKIE = "NEXT_LOCALE";
 const DEFAULT_LOCALE = Locales.ENGLISH;

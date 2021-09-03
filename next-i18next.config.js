@@ -8,5 +8,5 @@ module.exports = {
     defaultLocale: "en-US",
     locales: ["es", "en-US"],
   },
-  localePath: path.resolve(__dirname, "locales"),
+  localePath: path.resolve(__dirname, "i18n"),
 };

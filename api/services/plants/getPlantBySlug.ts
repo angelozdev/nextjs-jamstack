@@ -1,6 +1,6 @@
 import { Context, gql } from "@apollo/client";
 import { client } from "@apollo";
-import { EnvironmentVariables, Locales } from "@constants";
+import { EnvironmentVariables, Locales } from "@utils/constants";
 
 const { contentful } = EnvironmentVariables;
 
