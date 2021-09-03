@@ -1,7 +1,7 @@
+import { Fragment } from "react";
 import { Search } from "@views";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Fragment } from "react";
 import Head from "next/head";
 
 // types

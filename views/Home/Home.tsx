@@ -1,6 +1,6 @@
+import { Fragment } from "react";
 import { Pane } from "evergreen-ui";
 import { AuthorsSection, Hero, PlantList, Wrapper } from "@components";
-import { Fragment } from "react";
 
 // types
 interface Props {

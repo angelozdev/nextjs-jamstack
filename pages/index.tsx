@@ -34,7 +34,7 @@ export const getStaticProps = async ({
     const plants = await getPlantList({
       limit: 9,
       locale,
-      order: "sys_publishedAt_DESC",
+      order: "sys_id_ASC",
     });
     const authors = await getAuthorList({ limit: 4 });
 
