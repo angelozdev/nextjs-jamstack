@@ -1,30 +1,48 @@
-import { memo } from "react";
+import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import {
+  Avatar,
   Badge,
   Heading,
   IconButton,
   Link,
+  LogInIcon,
+  LogOutIcon,
+  Menu,
   Pane,
+  Popover,
   SearchIcon,
   TreeIcon,
 } from "evergreen-ui";
+import { getSession, signIn, signOut } from "next-auth/client";
 
 import { useSearchContext } from "@contexts/search";
 import { Languages, Wrapper } from "@components";
 import { Routes } from "@utils/constants";
 
+// types
+import type { Session } from "next-auth";
+
 function Header() {
+  // hooks
   const { t } = useTranslation("header");
   const router = useRouter();
   const { state } = useSearchContext();
+  const [session, setSession] = useState<Session | null | undefined>();
+
   const { status, data } = state;
   const { locales } = router;
-
   const dataLength = data.items.length;
   const isSearchRoute = router.pathname === Routes.SEARCH;
+  const { name, email, image } = session?.user || {};
+
+  useEffect(() => {
+    getSession()
+      .then(setSession)
+      .catch(() => setSession(null));
+  }, []);
 
   return (
     <Pane is="header" elevation={1}>
@@ -41,7 +59,6 @@ function Header() {
                 <Heading is="h1" display="flex" gap=".5rem">
                   <TreeIcon color="green500" />
                   Treepedia
-                  <Badge color="green">{t("badge")}</Badge>
                 </Heading>
               </Link>
             </NextLink>
@@ -53,7 +70,7 @@ function Header() {
             <NextLink href={Routes.SEARCH} passHref>
               <IconButton
                 disabled={isSearchRoute}
-                intent="success"
+                intent="none"
                 appearance="minimal"
                 is="a"
                 icon={
@@ -62,6 +79,38 @@ function Header() {
                 isLoading={status === "loading"}
               />
             </NextLink>
+
+            <Pane display="flex" placeContent="center">
+              {name || email ? (
+                <Popover
+                  content={
+                    <Menu>
+                      <Menu.Group title={email || name}>
+                        <Menu.Item onClick={() => signOut()} icon={LogOutIcon}>
+                          {t("logout")}
+                        </Menu.Item>
+                      </Menu.Group>
+                    </Menu>
+                  }
+                >
+                  <Avatar
+                    cursor="pointer"
+                    src={image || ""}
+                    size={32}
+                    name={name || email || "unknown user"}
+                  />
+                </Popover>
+              ) : (
+                <IconButton
+                  borderRadius="50%"
+                  backgroundColor="transparent"
+                  border="none"
+                  isLoading={session === undefined}
+                  icon={LogInIcon}
+                  onClick={() => signIn()}
+                />
+              )}
+            </Pane>
           </Pane>
         </Pane>
       </Wrapper>
@@ -69,4 +118,4 @@ function Header() {
   );
 }
 
-export default memo(Header);
+export default Header;
