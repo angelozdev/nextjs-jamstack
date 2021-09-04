@@ -8,6 +8,11 @@ const EnvironmentVariables = {
     SECRET: process.env.CONTENTFUL_SECRET || "",
     PREVIEW_ACCESS_TOKEN: process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN || "",
   },
+  nextAuth: {
+    URL: process.env.NEXTAUTH_URL,
+    AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
+    AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
+  },
 };
 
 function generateWarns(object: Object, parent?: string) {
