@@ -20,7 +20,7 @@ const postMethod: NextApiHandler = (req, res) => {
   const newLocale = req.body?.locale;
 
   if (!newLocale || typeof newLocale !== "string") {
-    return res.status(404).json({ message: "Invalid locale" });
+    return res.status(400).redirect("/").end();
   }
 
   res.setHeader(
@@ -32,7 +32,7 @@ const postMethod: NextApiHandler = (req, res) => {
     })
   );
 
-  return res.end();
+  return res.status(200).redirect("/").end();
 };
 
 function language(req: NextApiRequest, res: NextApiResponse) {
