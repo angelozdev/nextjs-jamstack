@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -16,33 +15,24 @@ import {
   SearchIcon,
   TreeIcon,
 } from "evergreen-ui";
-import { getSession, signIn, signOut } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 import { useSearchContext } from "@contexts/search";
 import { Languages, Wrapper } from "@components";
 import { Routes } from "@utils/constants";
-
-// types
-import type { Session } from "next-auth";
 
 function Header() {
   // hooks
   const { t } = useTranslation("header");
   const router = useRouter();
   const { state } = useSearchContext();
-  const [session, setSession] = useState<Session | null | undefined>();
+  const [session, isLoading] = useSession();
 
   const { status, data } = state;
   const { locales } = router;
   const dataLength = data.items.length;
   const isSearchRoute = router.pathname === Routes.SEARCH;
   const { name, email, image } = session?.user || {};
-
-  useEffect(() => {
-    getSession()
-      .then(setSession)
-      .catch(() => setSession(null));
-  }, []);
 
   return (
     <Pane is="header" elevation={1}>
@@ -64,7 +54,7 @@ function Header() {
             </NextLink>
           </Pane>
 
-          <Pane display="flex" gap="1rem">
+          <Pane display="flex" gap=".5rem">
             {!!locales?.length && <Languages />}
 
             <NextLink href={Routes.SEARCH} passHref>
@@ -81,7 +71,7 @@ function Header() {
             </NextLink>
 
             <Pane display="flex" placeContent="center">
-              {name || email ? (
+              {session ? (
                 <Popover
                   content={
                     <Menu>
@@ -105,7 +95,7 @@ function Header() {
                   borderRadius="50%"
                   backgroundColor="transparent"
                   border="none"
-                  isLoading={session === undefined}
+                  isLoading={isLoading}
                   icon={LogInIcon}
                   onClick={() => signIn()}
                 />

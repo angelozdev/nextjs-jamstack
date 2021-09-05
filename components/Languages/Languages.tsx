@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { Fragment, useCallback } from "react";
 import { Button, Pane, TranslateIcon } from "evergreen-ui";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -14,57 +14,37 @@ interface Option {
 function Languages() {
   const { t } = useTranslation("header");
   const router = useRouter();
-  const { locale, asPath } = router;
+  const { locale: currentLocale } = router;
 
-  const localeList: Option[] = useMemo(() => {
-    return [
-      {
-        label: t("language.es"),
-        value: Locales.SPANISH,
-      },
-      {
-        label: t("language.en"),
-        value: Locales.ENGLISH,
-      },
-    ];
-  }, [t]);
-
-  const handleOnChangeLocale = useCallback(
-    (value: Locales) => {
-      if (locale === value) return;
-      window
-        .fetch(`/api/language`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ locale: value }),
-        })
-        .catch((error) => {
-          if (EnvironmentVariables.node.env === "development") {
-            console.error(error);
-          }
-        })
-        .finally(() => {
-          router.replace(asPath, undefined, { locale: value });
-        });
+  const localeList: Option[] = [
+    {
+      label: t("language.es"),
+      value: Locales.SPANISH,
     },
-    [locale, asPath, router]
-  );
+    {
+      label: t("language.en"),
+      value: Locales.ENGLISH,
+    },
+  ];
 
   return (
-    <Pane>
+    <Pane display="flex" alignItems="center">
       {localeList.map(({ label, value }) => {
-        const isActive = value === locale;
+        const isActive = value === currentLocale;
         if (isActive) return;
         return (
-          <Button
-            iconBefore={<TranslateIcon />}
-            intent="info"
-            appearance="minimal"
-            onClick={() => handleOnChangeLocale(value)}
-            key={value}
-          >
-            <sup>{label}</sup>
-          </Button>
+          <Pane key={value} is="form" method="POST" action="/api/language">
+            <input name="locale" type="hidden" value={value} />
+            <Button
+              type="submit"
+              iconBefore={<TranslateIcon />}
+              intent="info"
+              appearance="minimal"
+              size="small"
+            >
+              {label}
+            </Button>
+          </Pane>
         );
       })}
     </Pane>

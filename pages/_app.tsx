@@ -1,6 +1,6 @@
 import "styles/globals.css";
 import { appWithTranslation } from "next-i18next";
-import { Provider } from "next-auth/client";
+import { Provider as NextAuthProvider } from "next-auth/client";
 
 import { Layout } from "@components";
 import { Provider as SearchProvider } from "@contexts/search";
@@ -10,13 +10,13 @@ import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider>
+    <NextAuthProvider session={pageProps.session}>
       <SearchProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </SearchProvider>
-    </Provider>
+    </NextAuthProvider>
   );
 }
 export default appWithTranslation(MyApp);

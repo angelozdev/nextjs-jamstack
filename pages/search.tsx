@@ -1,18 +1,26 @@
 import { Fragment } from "react";
 import { Search } from "@views";
-import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 
 // types
-interface Props {}
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
+interface Props {
+  session: Session | null;
+}
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  req,
+  locale,
+}) => {
   try {
     if (typeof locale !== "string") {
       throw new Error("[SearchPage: getStaticProps]: invalid locale");
     }
 
+    const session = await getSession({ req });
     const translations = await serverSideTranslations(locale, [
       "header",
       "footer",
@@ -22,22 +30,27 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     return {
       props: {
         ...translations,
+        session,
       },
     };
   } catch (error) {
     return {
-      props: {},
+      props: {
+        session: null,
+      },
     };
   }
 };
 
-function SearchPage() {
+function SearchPage({
+  session,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Fragment>
       <Head>
         <title>🔍️ Treepedia | Search </title>
       </Head>
-      <Search />
+      <Search user={session?.user} />
     </Fragment>
   );
 }

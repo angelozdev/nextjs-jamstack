@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Alert, Pane, Paragraph, SearchInput } from "evergreen-ui";
+import { Alert, Link, Pane, Paragraph, SearchInput } from "evergreen-ui";
 import { useTranslation } from "next-i18next";
+import NextLink from "next/link";
 
 import { useDebounce, useIntersectionObserver } from "@utils/hooks";
 import { Loader, PlantList, Wrapper } from "@components";
@@ -8,8 +9,13 @@ import { useSearchContext } from "@contexts/search";
 
 // types
 import type { ChangeEvent } from "react";
+import type { DefaultSession } from "next-auth";
+import { Routes } from "@utils/constants";
+interface Props {
+  user?: DefaultSession["user"];
+}
 
-function SearchView() {
+function SearchView({ user }: Props) {
   // hooks
   const { searchByTerm, state, nextPage } = useSearchContext();
   const { t } = useTranslation("search");
@@ -41,14 +47,25 @@ function SearchView() {
   }, [debounceValue, searchByTerm]);
 
   useEffect(() => {
-    if (isVisible && debounceValue) {
+    if (isVisible && debounceValue && user) {
       nextPage(debounceValue);
     }
-  }, [isVisible, debounceValue, nextPage]);
+  }, [isVisible, debounceValue, nextPage, user]);
 
   return (
     <Pane is="section">
       <Wrapper maxWidth="1280px">
+        {!user && (
+          <Pane textAlign="center" marginTop="1rem">
+            <Paragraph>
+              To search more than eight posts you have to{" "}
+              <NextLink href={Routes.SIGNIN} passHref locale={false}>
+                <Link>sign in.</Link>
+              </NextLink>
+            </Paragraph>
+          </Pane>
+        )}
+
         <Pane paddingY="2rem" textAlign="center">
           <SearchInput
             onChange={handleChangeValue}
